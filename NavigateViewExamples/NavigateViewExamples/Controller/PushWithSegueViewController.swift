@@ -9,8 +9,16 @@ import UIKit
 
 class PushWithSegueViewController: UIViewController {
     
+    @IBOutlet weak var dataFromParentLabel: UILabel!
+    var dataFromParent: String?
+    
+    weak var delegate: SendDataByDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let dataFromParent {
+            dataFromParentLabel.text = dataFromParent
+        }
     }
     
     @IBAction func tapBackButton(_ sender: UIButton) {
@@ -20,4 +28,9 @@ class PushWithSegueViewController: UIViewController {
 //        }
 //        self.navigationController?.popToRootViewController(animated: true)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.delegate?.sendData(message: "This message is received by 'PushWithSegueView'.")
+    }
+    
 }
