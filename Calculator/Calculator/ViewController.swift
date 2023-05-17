@@ -90,27 +90,51 @@ extension ViewController {
     }
     
     func operation(_ operation: Operation) {
-        if self.currentOperation == .unknown {
-            self.firstOperand = self.currentNumber
-            self.currentOperation = operation
-            self.currentNumber = ""
-        } else {
-            if !self.currentNumber.isEmpty {
-                self.secondOperand = self.currentNumber
-                self.currentNumber = ""
-                guard let firstOperand = Double(self.firstOperand) else { return }
-                guard let secondOperand = Double(self.secondOperand) else { return }
-                switch self.currentOperation {
-                case .Add: self.result = "\(firstOperand + secondOperand)"
-                case .Subtract: self.result = "\(firstOperand - secondOperand)"
-                case .Divide: self.result = "\(firstOperand / secondOperand)"
-                case .Multiply: self.result = "\(firstOperand * secondOperand)"
-                default: break
-                }
-                
-            }
-            self.currentOperation = operation
-        }
+        self.currentOperation == .unknown
+        ? saveFirstOperand(operation)
+        : saveSecondOperandOrCalculate(operation)
     }
     
+    func saveFirstOperand(_ operation: Operation) {
+        self.firstOperand = self.currentNumber
+        self.currentNumber = ""
+        self.currentOperation = operation
+    }
+    
+    func saveSecondOperandOrCalculate(_ operation: Operation) {
+        typealias OperationClosure = (Double, Double) -> String
+        let operationRunner: [Operation: OperationClosure] = [
+            .Add: add,
+            .Subtract: subtract,
+            .Divide: divide,
+            .Multiply: multiply
+        ]
+        
+        if !self.currentNumber.isEmpty {
+            self.secondOperand = self.currentNumber
+            self.currentNumber = ""
+            guard let firstOperand = Double(self.firstOperand) else { return }
+            guard let secondOperand = Double(self.secondOperand) else { return }
+            if let closure = operationRunner[operation] {
+                self.result = closure(firstOperand, secondOperand)
+            }
+        }
+        self.currentOperation = operation
+    }
+    
+    func add(_ a: Double, _ b: Double) -> String {
+        "\(a + b)"
+    }
+    
+    func subtract(_ a: Double, _ b: Double) -> String {
+        "\(a - b)"
+    }
+    
+    func divide(_ a: Double, _ b: Double) -> String {
+        "\(a / b)"
+    }
+    
+    func multiply(_ a: Double, _ b: Double) -> String {
+        "\(a * b)"
+    }
 }
