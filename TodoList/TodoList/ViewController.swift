@@ -8,35 +8,49 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     var tasks: [Task] = [Task]() {
         didSet {
             self.saveTasks()
         }
     }
-
+    
+    // Manually set 'strong' reference!!
+    // If I set this button to 'weak', when I change this button to another,
+    // and return after, this button will be deallocated on memory.
+    @IBOutlet var editButton: UIBarButtonItem!
+    var doneButton: UIBarButtonItem?
+    
     @IBOutlet weak var tableView: UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTap))
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.loadTasks()
     }
-
-    @IBAction func tapEditButton(_ sender: UIBarButtonItem) {
-
+    
+    @objc func doneButtonTap() {
+        self.navigationItem.leftBarButtonItem = self.editButton
+        self.tableView.setEditing(false, animated: true)
     }
-
+    
+    @IBAction func tapEditButton(_ sender: UIBarButtonItem) {
+        guard !self.tasks.isEmpty else { return }
+        self.navigationItem.leftBarButtonItem = self.doneButton
+        self.tableView.setEditing(true, animated: true)
+    }
+    
     @IBAction func tapAddButton(_ sender: UIBarButtonItem) {
         var inputText = UITextField()
-
+        
         let alert = UIAlertController(title: "할 일 등록", message: "할 일을 등록해주세요.", preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "할 일을 입력해주세요."
             inputText = textField
         }
-
+        
         let registerButton = UIAlertAction(title: "등록", style: .default) { [weak self] _ in
             guard let newTodo = inputText.text, !newTodo.isEmpty else { return }
             let task = Task(title: newTodo)
@@ -47,23 +61,32 @@ class ViewController: UIViewController {
         let cancelButton = UIAlertAction(title: "취소", style: .cancel)
         alert.addAction(registerButton)
         alert.addAction(cancelButton)
-
+        
         present(alert, animated: true)
     }
-
+    
 }
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tasks.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let task = tasks[indexPath.row]
         cell.textLabel?.text = task.title
-        cell.accessoryType = task.done ? .checkmark : .none        
+        cell.accessoryType = task.done ? .checkmark : .none
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        self.tasks.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+
+        if self.tasks.isEmpty {
+            self.doneButtonTap()
+        }
     }
 }
 
@@ -87,7 +110,7 @@ extension ViewController {
         let userDefaults = UserDefaults.standard
         userDefaults.set(data, forKey: "tasks")
     }
-
+    
     func loadTasks() {
         let userDefaults = UserDefaults.standard
         guard let data = userDefaults.object(forKey: "tasks") as? [[String: Any]] else { return }
