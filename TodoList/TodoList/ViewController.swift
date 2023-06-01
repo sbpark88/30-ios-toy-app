@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.loadTasks()
     }
 
@@ -59,8 +60,19 @@ extension ViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = tasks[indexPath.row].title
+        let task = tasks[indexPath.row]
+        cell.textLabel?.text = task.title
+        cell.accessoryType = task.done ? .checkmark : .none        
         return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var task = self.tasks[indexPath.row]
+        task.done = !task.done
+        self.tasks[indexPath.row] = task
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 
