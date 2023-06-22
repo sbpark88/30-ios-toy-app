@@ -16,6 +16,7 @@
 		E9C60C512A4449D60025958C /* DiaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C60C502A4449D60025958C /* DiaryCell.swift */; };
 		E9C60C532A444A550025958C /* StarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C60C522A444A550025958C /* StarViewController.swift */; };
 		E9C60C552A444BBD0025958C /* StarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C60C542A444BBD0025958C /* StarCell.swift */; };
+		E9C60C5A2A444E6A0025958C /* WriteDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C60C592A444E6A0025958C /* WriteDiaryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		E9C60C502A4449D60025958C /* DiaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCell.swift; sourceTree = "<group>"; };
 		E9C60C522A444A550025958C /* StarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarViewController.swift; sourceTree = "<group>"; };
 		E9C60C542A444BBD0025958C /* StarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarCell.swift; sourceTree = "<group>"; };
+		E9C60C592A444E6A0025958C /* WriteDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteDiaryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 			children = (
 				E9C60C402A4439A10025958C /* DiaryViewController.swift */,
 				E9C60C502A4449D60025958C /* DiaryCell.swift */,
+				E9C60C592A444E6A0025958C /* WriteDiaryViewController.swift */,
 			);
 			path = Diary;
 			sourceTree = "<group>";
@@ -172,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9C60C412A4439A10025958C /* DiaryViewController.swift in Sources */,
+				E9C60C5A2A444E6A0025958C /* WriteDiaryViewController.swift in Sources */,
 				E9C60C552A444BBD0025958C /* StarCell.swift in Sources */,
 				E9C60C3D2A4439A10025958C /* AppDelegate.swift in Sources */,
 				E9C60C3F2A4439A10025958C /* SceneDelegate.swift in Sources */,
