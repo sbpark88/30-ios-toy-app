@@ -66,10 +66,11 @@
 		E9C60C3B2A4439A10025958C /* Diary */ = {
 			isa = PBXGroup;
 			children = (
-				E9C60C582A444C1F0025958C /* VIew */,
+				E9EDA38E2A45819D004CC53E /* View */,
+				E9EDA38D2A45818B004CC53E /* Model */,
+				E9C60C582A444C1F0025958C /* Controller */,
 				E9C60C3C2A4439A10025958C /* AppDelegate.swift */,
 				E9C60C3E2A4439A10025958C /* SceneDelegate.swift */,
-				E9C60C422A4439A10025958C /* Main.storyboard */,
 				E9C60C452A4439A20025958C /* Assets.xcassets */,
 				E9C60C472A4439A20025958C /* LaunchScreen.storyboard */,
 				E9C60C4A2A4439A20025958C /* Info.plist */,
@@ -97,13 +98,28 @@
 			path = Star;
 			sourceTree = "<group>";
 		};
-		E9C60C582A444C1F0025958C /* VIew */ = {
+		E9C60C582A444C1F0025958C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				E9C60C562A444BFD0025958C /* Diary */,
 				E9C60C572A444C080025958C /* Star */,
 			);
-			path = VIew;
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E9EDA38D2A45818B004CC53E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E9EDA38E2A45819D004CC53E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E9C60C422A4439A10025958C /* Main.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
