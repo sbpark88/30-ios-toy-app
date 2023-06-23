@@ -75,3 +75,14 @@ extension DiaryViewController: WriteDiaryViewDelegate {
         self.diaryList.append(diary)
     }
 }
+
+// MARK: Segue to Diary Detail View
+extension DiaryViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let diaryDeatilViewController = self.storyboard?.instantiateViewController(identifier: "DiaryDetailViewController") as? DiaryDetailViewController else { return }
+        let selectedDiary = self.diaryList[indexPath.row]
+        diaryDeatilViewController.diary = selectedDiary
+        diaryDeatilViewController.indexPath = indexPath
+        self.navigationController?.pushViewController(diaryDeatilViewController, animated: true)
+    }
+}
