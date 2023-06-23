@@ -20,6 +20,7 @@
 		E9C60C5C2A444EC80025958C /* DiaryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C60C5B2A444EC80025958C /* DiaryDetailViewController.swift */; };
 		E9EDA3902A458376004CC53E /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDA38F2A458376004CC53E /* Diary.swift */; };
 		E9EDA3932A45D04C004CC53E /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDA3922A45D04C004CC53E /* DateUtil.swift */; };
+		E9EDA3952A45D896004CC53E /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDA3942A45D896004CC53E /* Store.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		E9C60C5B2A444EC80025958C /* DiaryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewController.swift; sourceTree = "<group>"; };
 		E9EDA38F2A458376004CC53E /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		E9EDA3922A45D04C004CC53E /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		E9EDA3942A45D896004CC53E /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				E9EDA3922A45D04C004CC53E /* DateUtil.swift */,
+				E9EDA3942A45D896004CC53E /* Store.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				E9C60C552A444BBD0025958C /* StarCell.swift in Sources */,
 				E9C60C3D2A4439A10025958C /* AppDelegate.swift in Sources */,
 				E9C60C3F2A4439A10025958C /* SceneDelegate.swift in Sources */,
+				E9EDA3952A45D896004CC53E /* Store.swift in Sources */,
 				E9EDA3902A458376004CC53E /* Diary.swift in Sources */,
 				E9C60C5C2A444EC80025958C /* DiaryDetailViewController.swift in Sources */,
 				E9C60C512A4449D60025958C /* DiaryCell.swift in Sources */,

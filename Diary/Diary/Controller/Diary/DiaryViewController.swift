@@ -11,16 +11,22 @@ import UIKit
 class DiaryViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    lazy var store = Store()
     
     private var diaryList: [Diary] = [Diary]() {
         didSet {
+            self.diaryList = self.diaryList.sorted { $0.date < $1.date }
             self.collectionView.reloadData()
+            self.store.saveDiaryList(diaryList: diaryList)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configurCollectionView()
+        if let savedDiaryList = self.store.loadDiaryList() {
+            self.diaryList = savedDiaryList
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -28,6 +34,7 @@ class DiaryViewController: UIViewController {
             writeDiaryViewController.delegate = self
         }
     }
+    
 }
 
 // MARK: init
