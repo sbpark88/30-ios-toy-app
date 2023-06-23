@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol WriteDiaryViewDelegate: AnyObject {
+    func didSelectRegister(diary: Diary)
+}
+
 class WriteDiaryViewController: UIViewController {
     
     @IBOutlet weak var titleTextField: UITextField!
@@ -17,12 +21,17 @@ class WriteDiaryViewController: UIViewController {
     private let datePicker = UIDatePicker()
     private var diaryDate: Date?
 
+    weak var delegate: WriteDiaryViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureContentTextView()
         self.configureDatePicker()
         self.confirmButton.isEnabled = false
+        
+        self.datePicker.date = Date()
+        print(datePicker)
+        print(datePicker.date)
         
         // MARK: for validator
         self.contentTextView.delegate = self
@@ -31,6 +40,12 @@ class WriteDiaryViewController: UIViewController {
     }
     
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
+        guard let title = self.titleTextField.text else { return }
+        guard let content = self.contentTextView.text else { return }
+        guard let date = self.diaryDate else { return }
+        let diary = Diary(title: title, content: content, date: date)
+        self.delegate?.didSelectRegister(diary: diary)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -44,6 +59,7 @@ extension WriteDiaryViewController {
     }
     
     private func configureDatePicker() {
+        
         self.datePicker.datePickerMode = .date
         self.datePicker.preferredDatePickerStyle = .wheels
         self.datePicker.addTarget(self, action: #selector(datePickerValueDidChange), for: .valueChanged)
@@ -52,11 +68,9 @@ extension WriteDiaryViewController {
     }
     
     @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy 년 MM 월 dd 일 (EEEEE)" // 2023년 06월 22일 (목)
-        formatter.locale = Locale(identifier: "ko_KR")
-        self.diaryDate = datePicker.date
-        self.dateTextField.text = formatter.string(from: datePicker.date)
+        let selectedDate = datePicker.date
+        self.diaryDate = selectedDate
+        self.dateTextField.text = DateUtil.dateToStringFullFormat(date: selectedDate)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
