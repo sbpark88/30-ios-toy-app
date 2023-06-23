@@ -8,7 +8,7 @@
 import UIKit
 
 class WriteDiaryViewController: UIViewController {
-
+    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var dateTextField: UITextField!
@@ -21,8 +21,13 @@ class WriteDiaryViewController: UIViewController {
         super.viewDidLoad()
         self.configureContentTextView()
         self.configureDatePicker()
+        self.confirmButton.isEnabled = false
+        
+        // MARK: for validator
+        self.contentTextView.delegate = self
+        self.titleTextField.addTarget(self, action: #selector(validateInputData), for: .editingChanged)
     }
-
+    
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
     }
 }
@@ -39,15 +44,39 @@ extension WriteDiaryViewController {
     private func configureDatePicker() {
         self.datePicker.datePickerMode = .date
         self.datePicker.preferredDatePickerStyle = .wheels
-        self.datePicker.addTarget(self, action: #selector(datePickerValueDidChange(_:)), for: .valueChanged)
+        self.datePicker.addTarget(self, action: #selector(datePickerValueDidChange), for: .valueChanged)
+        self.datePicker.locale = Locale(identifier: "ko_KR")
         self.dateTextField.inputView = self.datePicker
     }
-
+    
     @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy 년 MM 월 dd 일 (EEEEE)" // 2023년 06월 22일 (목)
         formatter.locale = Locale(identifier: "ko_KR")
         self.diaryDate = datePicker.date
         self.dateTextField.text = formatter.string(from: datePicker.date)
+        self.validateInputData()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}
+
+// MARK: Adopt protocol for 'contentTextView' delegate
+extension WriteDiaryViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        self.validateInputData()
+    }
+}
+
+// MARK: Validator
+extension WriteDiaryViewController {
+    @objc private func validateInputData() {
+        let titleIsDone = !(self.titleTextField.text?.isEmpty ?? true)
+        let dateIsDone = !(self.dateTextField.text?.isEmpty ?? true)
+        let contentIsDone = !(self.contentTextView.text?.isEmpty ?? true)
+
+        self.confirmButton.isEnabled = titleIsDone && dateIsDone && contentIsDone
     }
 }
