@@ -7,11 +7,16 @@
 
 import UIKit
 
+protocol DiaryDetailViewDelegate: AnyObject {
+    func deleteDiary(indexPath: IndexPath)
+}
+
 class DiaryDetailViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
+    weak var delegate: DiaryDetailViewDelegate?
     
     var diary: Diary?
     var indexPath: IndexPath?
@@ -24,6 +29,9 @@ class DiaryDetailViewController: UIViewController {
     @IBAction func tapEditButton(_ sender: UIButton) {
     }
     @IBAction func tapDeleteButton(_ sender: UIButton) {
+        guard let indexPath else { return }
+        self.delegate?.deleteDiary(indexPath: indexPath)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

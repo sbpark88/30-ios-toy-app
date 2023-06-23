@@ -77,12 +77,17 @@ extension DiaryViewController: WriteDiaryViewDelegate {
 }
 
 // MARK: Segue to Diary Detail View
-extension DiaryViewController: UICollectionViewDelegate {
+extension DiaryViewController: UICollectionViewDelegate, DiaryDetailViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let diaryDeatilViewController = self.storyboard?.instantiateViewController(identifier: "DiaryDetailViewController") as? DiaryDetailViewController else { return }
         let selectedDiary = self.diaryList[indexPath.row]
         diaryDeatilViewController.diary = selectedDiary
         diaryDeatilViewController.indexPath = indexPath
+        diaryDeatilViewController.delegate = self
         self.navigationController?.pushViewController(diaryDeatilViewController, animated: true)
+    }
+    
+    func deleteDiary(indexPath: IndexPath) {
+        self.diaryList.remove(at: indexPath.row)
     }
 }
