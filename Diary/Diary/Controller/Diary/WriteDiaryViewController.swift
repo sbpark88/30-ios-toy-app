@@ -16,6 +16,7 @@ class WriteDiaryViewController: UIViewController {
     
     private let datePicker = UIDatePicker()
     private var diaryDate: Date?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,8 @@ class WriteDiaryViewController: UIViewController {
         
         // MARK: for validator
         self.contentTextView.delegate = self
-        self.titleTextField.addTarget(self, action: #selector(validateInputData), for: .editingChanged)
+        self.titleTextField.delegate = self
+        self.dateTextField.delegate = self
     }
     
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
@@ -55,13 +57,20 @@ extension WriteDiaryViewController {
         formatter.locale = Locale(identifier: "ko_KR")
         self.diaryDate = datePicker.date
         self.dateTextField.text = formatter.string(from: datePicker.date)
-        self.validateInputData()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
 }
+
+// MARK: Adopt protocol for 'titleTextField', 'dateTextField' delegate
+extension WriteDiaryViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        self.validateInputData()
+    }
+}
+
 
 // MARK: Adopt protocol for 'contentTextView' delegate
 extension WriteDiaryViewController: UITextViewDelegate {
@@ -72,7 +81,7 @@ extension WriteDiaryViewController: UITextViewDelegate {
 
 // MARK: Validator
 extension WriteDiaryViewController {
-    @objc private func validateInputData() {
+    private func validateInputData() {
         let titleIsDone = !(self.titleTextField.text?.isEmpty ?? true)
         let dateIsDone = !(self.dateTextField.text?.isEmpty ?? true)
         let contentIsDone = !(self.contentTextView.text?.isEmpty ?? true)
