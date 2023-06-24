@@ -21,7 +21,7 @@ class WriteDiaryViewController: UIViewController {
     private let datePicker = UIDatePicker()
     private var diaryDate: Date?
     var diaryEditorMode: DiaryEditorMode = .new
-
+    
     weak var delegate: WriteDiaryViewDelegate?
     
     override func viewDidLoad() {
@@ -30,10 +30,9 @@ class WriteDiaryViewController: UIViewController {
         self.configureDatePicker()
         self.confirmButton.isEnabled = false
         
-        // MARK: Editor mode
-        self.setDiaryMode()
+        self.setDiaryEditorMode()
         
-        // MARK: for validator
+        // for validator
         self.contentTextView.delegate = self
         self.titleTextField.delegate = self
         self.dateTextField.delegate = self
@@ -41,7 +40,24 @@ class WriteDiaryViewController: UIViewController {
     
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
         guard let diary = generateDiary() else { return }
+        switch self.diaryEditorMode {
+        case .new: saveNewDiary(diary: diary)
+        case let .edit(indexPath, _): editDiary(indexPath: indexPath, diary: diary)
+        }
+    }
+    
+    private func saveNewDiary(diary: Diary) {
         self.delegate?.didSelectRegister(diary: diary)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func editDiary(indexPath: IndexPath, diary: Diary) {
+        let diaryEditNotificationPublisher = Notification(
+            name: Notification.Name("editDiary"),
+            object: diary,
+            userInfo: ["indexPath": indexPath]
+        )
+        NotificationCenter.default.post(diaryEditNotificationPublisher)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -49,6 +65,7 @@ class WriteDiaryViewController: UIViewController {
         guard let title = self.titleTextField.text else { return nil }
         guard let content = self.contentTextView.text else { return nil }
         guard let date = self.diaryDate else { return nil }
+        print(content)
         return Diary(title: title, content: content, date: date)
     }
 }
@@ -80,20 +97,20 @@ extension WriteDiaryViewController {
         self.view.endEditing(true)
     }
     
-    private func setDiaryMode() {
+    private func setDiaryEditorMode() {
         switch self.diaryEditorMode {
-        case .new: newDiaryModeWillStart()
-        case let .edit(_, diary): editDiaryModeWillStart(diary: diary)
+        case .new: diaryModeIsNewDiary()
+        case let .edit(_, diary): diaryModeIsEditDiary(diary: diary)
         }
     }
     
-    private func newDiaryModeWillStart() {
+    private func diaryModeIsNewDiary() {
         let today = Date()
         self.diaryDate = today
         self.dateTextField.text = DateUtil.dateToStringFullFormat(date: today)
     }
     
-    private func editDiaryModeWillStart(diary: Diary) {
+    private func diaryModeIsEditDiary(diary: Diary) {
         self.titleTextField.text = diary.title
         self.contentTextView.text = diary.content
         self.diaryDate = diary.date
@@ -102,28 +119,21 @@ extension WriteDiaryViewController {
     }
 }
 
-// MARK: Adopt protocol for 'titleTextField', 'dateTextField' delegate
-extension WriteDiaryViewController: UITextFieldDelegate {
+// MARK: Validator
+extension WriteDiaryViewController: UITextFieldDelegate, UITextViewDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         self.validateInputData()
     }
-}
-
-
-// MARK: Adopt protocol for 'contentTextView' delegate
-extension WriteDiaryViewController: UITextViewDelegate {
+    
     func textViewDidChange(_ textView: UITextView) {
         self.validateInputData()
     }
-}
-
-// MARK: Validator
-extension WriteDiaryViewController {
+    
     private func validateInputData() {
         let titleIsDone = !(self.titleTextField.text?.isEmpty ?? true)
         let dateIsDone = !(self.dateTextField.text?.isEmpty ?? true)
         let contentIsDone = !(self.contentTextView.text?.isEmpty ?? true)
-
+        
         self.confirmButton.isEnabled = titleIsDone && dateIsDone && contentIsDone
     }
 }

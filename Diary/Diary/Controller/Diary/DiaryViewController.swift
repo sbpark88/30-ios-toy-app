@@ -28,13 +28,6 @@ class DiaryViewController: UIViewController {
             self.diaryList = savedDiaryList
         }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let writeDiaryViewController = segue.destination as? WriteDiaryViewController {
-            writeDiaryViewController.delegate = self
-        }
-    }
-    
 }
 
 // MARK: init
@@ -74,6 +67,12 @@ extension DiaryViewController: WriteDiaryViewDelegate {
     func didSelectRegister(diary: Diary) {
         self.diaryList.append(diary)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let writeDiaryViewController = segue.destination as? WriteDiaryViewController {
+            writeDiaryViewController.delegate = self
+        }
+    }
 }
 
 // MARK: Segue to Diary Detail View
@@ -89,5 +88,9 @@ extension DiaryViewController: UICollectionViewDelegate, DiaryDetailViewDelegate
     
     func deleteDiary(indexPath: IndexPath) {
         self.diaryList.remove(at: indexPath.row)
+    }
+    
+    func updateDiary(indxPath: IndexPath, diary: Diary) {
+        self.diaryList[indxPath.row] = diary
     }
 }
