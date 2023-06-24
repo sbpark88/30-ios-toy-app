@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E984036C2A46C82F00E3A85A /* DiaryEditorMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984036B2A46C82F00E3A85A /* DiaryEditorMode.swift */; };
 		E9C60C3D2A4439A10025958C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C60C3C2A4439A10025958C /* AppDelegate.swift */; };
 		E9C60C3F2A4439A10025958C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C60C3E2A4439A10025958C /* SceneDelegate.swift */; };
 		E9C60C412A4439A10025958C /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C60C402A4439A10025958C /* DiaryViewController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E984036B2A46C82F00E3A85A /* DiaryEditorMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditorMode.swift; sourceTree = "<group>"; };
 		E9C60C392A4439A10025958C /* Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Diary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C60C3C2A4439A10025958C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9C60C3E2A4439A10025958C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				E9EDA38F2A458376004CC53E /* Diary.swift */,
+				E984036B2A46C82F00E3A85A /* DiaryEditorMode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9C60C412A4439A10025958C /* DiaryViewController.swift in Sources */,
+				E984036C2A46C82F00E3A85A /* DiaryEditorMode.swift in Sources */,
 				E9EDA3932A45D04C004CC53E /* DateUtil.swift in Sources */,
 				E9C60C5A2A444E6A0025958C /* WriteDiaryViewController.swift in Sources */,
 				E9C60C552A444BBD0025958C /* StarCell.swift in Sources */,

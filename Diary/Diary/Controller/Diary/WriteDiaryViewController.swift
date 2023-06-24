@@ -20,6 +20,7 @@ class WriteDiaryViewController: UIViewController {
     
     private let datePicker = UIDatePicker()
     private var diaryDate: Date?
+    var diaryEditorMode: DiaryEditorMode = .new
 
     weak var delegate: WriteDiaryViewDelegate?
     
@@ -29,9 +30,8 @@ class WriteDiaryViewController: UIViewController {
         self.configureDatePicker()
         self.confirmButton.isEnabled = false
         
-        self.datePicker.date = Date()
-        print(datePicker)
-        print(datePicker.date)
+        // MARK: Editor mode
+        self.setDiaryMode()
         
         // MARK: for validator
         self.contentTextView.delegate = self
@@ -40,12 +40,16 @@ class WriteDiaryViewController: UIViewController {
     }
     
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
-        guard let title = self.titleTextField.text else { return }
-        guard let content = self.contentTextView.text else { return }
-        guard let date = self.diaryDate else { return }
-        let diary = Diary(title: title, content: content, date: date)
+        guard let diary = generateDiary() else { return }
         self.delegate?.didSelectRegister(diary: diary)
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func generateDiary() -> Diary? {
+        guard let title = self.titleTextField.text else { return nil }
+        guard let content = self.contentTextView.text else { return nil }
+        guard let date = self.diaryDate else { return nil }
+        return Diary(title: title, content: content, date: date)
     }
 }
 
@@ -59,7 +63,6 @@ extension WriteDiaryViewController {
     }
     
     private func configureDatePicker() {
-        
         self.datePicker.datePickerMode = .date
         self.datePicker.preferredDatePickerStyle = .wheels
         self.datePicker.addTarget(self, action: #selector(datePickerValueDidChange), for: .valueChanged)
@@ -75,6 +78,27 @@ extension WriteDiaryViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    private func setDiaryMode() {
+        switch self.diaryEditorMode {
+        case .new: newDiaryModeWillStart()
+        case let .edit(_, diary): editDiaryModeWillStart(diary: diary)
+        }
+    }
+    
+    private func newDiaryModeWillStart() {
+        let today = Date()
+        self.diaryDate = today
+        self.dateTextField.text = DateUtil.dateToStringFullFormat(date: today)
+    }
+    
+    private func editDiaryModeWillStart(diary: Diary) {
+        self.titleTextField.text = diary.title
+        self.contentTextView.text = diary.content
+        self.diaryDate = diary.date
+        self.dateTextField.text = DateUtil.dateToStringFullFormat(date: diary.date)
+        self.confirmButton.title = "수정"
     }
 }
 
