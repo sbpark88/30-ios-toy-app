@@ -17,6 +17,8 @@ class DiaryDetailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
+    var favoriteButton: UIBarButtonItem?
+    
     weak var delegate: DiaryDetailViewDelegate?
     
     var diary: Diary?
@@ -72,5 +74,16 @@ extension DiaryDetailViewController {
         self.titleLabel.text = diary.title
         self.contentTextView.text = diary.content
         self.dateLabel.text = DateUtil.dateToStringFullFormat(date: diary.date)
+        self.favoriteButton = UIBarButtonItem(image: nil, style: .plain, target: self, action: #selector(tapFavoriteButton))
+        self.favoriteButton?.image = diary.favorite ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
+        self.favoriteButton?.tintColor = .orange
+        self.navigationItem.rightBarButtonItem = self.favoriteButton
+    }
+    
+    @objc func tapFavoriteButton() {
+        guard let isFavorite = self.diary?.favorite, let indexPath = self.indexPath else { return }
+        self.favoriteButton?.image = isFavorite ? UIImage(systemName: "star") : UIImage(systemName: "star.fill")
+        self.diary?.favorite = !isFavorite
+        self.delegate?.updateDiary(indxPath: indexPath, diary: self.diary!)
     }
 }
