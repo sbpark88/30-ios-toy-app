@@ -42,8 +42,12 @@ class WriteDiaryViewController: UIViewController {
         guard let diary = generateDiary() else { return }
         switch self.diaryEditorMode {
         case .new: saveNewDiary(diary: diary)
-        case let .edit(indexPath, _): editDiary(indexPath: indexPath, diary: diary)
-        }
+        case let .edit(indexPath, oldDiary): editDiary(indexPath: indexPath,
+                                                       diary: Diary(title: diary.title,
+                                                                    content: diary.content,
+                                                                    date: diary.date,
+                                                                    favorite: oldDiary.favorite
+                                                                   ))}
     }
     
     private func saveNewDiary(diary: Diary) {
@@ -65,7 +69,6 @@ class WriteDiaryViewController: UIViewController {
         guard let title = self.titleTextField.text else { return nil }
         guard let content = self.contentTextView.text else { return nil }
         guard let date = self.diaryDate else { return nil }
-        print(content)
         return Diary(title: title, content: content, date: date)
     }
 }
