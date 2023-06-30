@@ -69,7 +69,7 @@ class WriteDiaryViewController: UIViewController {
         guard let title = self.titleTextField.text else { return nil }
         guard let content = self.contentTextView.text else { return nil }
         guard let date = self.diaryDate else { return nil }
-        return Diary(id: store.generateId(), title: title, content: content, date: date)
+        return Diary(id: UUID().uuidString, title: title, content: content, date: date)
     }
 }
 

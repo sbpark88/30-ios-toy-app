@@ -49,17 +49,4 @@ struct Store {
         let newDiaryList = oldDiaryList.filter { $0.id != diary.id }
         self.saveDiaryList(diaryList: newDiaryList)
     }
-    
-    func getLastId() -> String? {
-        guard let oldDiaryList = self.loadDiaryList() else { return nil }
-        return oldDiaryList.max { $0.id < $1.id }?.id
-    }
-    
-    func generateId() -> String {
-        if let lastId = getLastId() {
-            return prefix + String(format: "%06d", Int(lastId.suffix(lastId.count - 6))! + 1)
-        } else {
-            return prefix + String(format: "%06d", 1)
-        }
-    }
 }
