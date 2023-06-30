@@ -8,6 +8,7 @@
 import Foundation
 
 struct Diary {
+    var id: String
     var title: String
     var content: String
     var date: Date

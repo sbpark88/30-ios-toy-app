@@ -8,8 +8,7 @@
 import UIKit
 
 protocol DiaryDetailViewDelegate: AnyObject {
-    func deleteDiary(indexPath: IndexPath)
-    func updateDiary(indxPath: IndexPath, diary: Diary)
+    func deleteDiary(diary: Diary)
 }
 
 class DiaryDetailViewController: UIViewController {
@@ -18,11 +17,11 @@ class DiaryDetailViewController: UIViewController {
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
     var favoriteButton: UIBarButtonItem?
+    lazy var store = Store()
     
     weak var delegate: DiaryDetailViewDelegate?
     
     var diary: Diary?
-    var indexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,16 +34,14 @@ class DiaryDetailViewController: UIViewController {
     
     @IBAction func tapEditButton(_ sender: UIButton) {
         guard let writeDiaryViewController = self.storyboard?.instantiateViewController(withIdentifier: "WriteDiaryViewController") as? WriteDiaryViewController else { return }
-        guard let indexPath = self.indexPath else { return }
         guard let diary = self.diary else { return }
-        writeDiaryViewController.diaryEditorMode = .edit(indexPath, diary)
+        writeDiaryViewController.diaryEditorMode = .edit(diary)
         observe()
         self.navigationController?.pushViewController(writeDiaryViewController, animated: true)
     }
     
     @IBAction func tapDeleteButton(_ sender: UIButton) {
-        guard let indexPath else { return }
-        self.delegate?.deleteDiary(indexPath: indexPath)
+        self.delegate?.deleteDiary(diary: diary!)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -59,12 +56,10 @@ class DiaryDetailViewController: UIViewController {
     
     @objc func editDiaryIsDone(notification: Notification) {
         guard let diary = notification.object as? Diary else { return }
-        guard let indexPath = notification.userInfo?["indexPath"] as? IndexPath else { return }
         self.diary = diary
         self.configureView()    // Diary 를 화면에 보여주는 함수
-        self.delegate?.updateDiary(indxPath: indexPath, diary: diary)
+        self.store.updateDiaryList(diary: diary)
     }
-    
 }
 
 // MARK: init
@@ -81,9 +76,9 @@ extension DiaryDetailViewController {
     }
     
     @objc func tapFavoriteButton() {
-        guard let isFavorite = self.diary?.favorite, let indexPath = self.indexPath else { return }
+        guard let isFavorite = self.diary?.favorite else { return }
         self.favoriteButton?.image = isFavorite ? UIImage(systemName: "star") : UIImage(systemName: "star.fill")
         self.diary?.favorite = !isFavorite
-        self.delegate?.updateDiary(indxPath: indexPath, diary: self.diary!)
+        self.store.updateDiaryList(diary: diary!)
     }
 }

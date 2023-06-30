@@ -16,15 +16,13 @@ class StarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.configureCollectionView()
         self.diaryList = self.store.loadDiaryList()?.filter({ $0.favorite })
         self.collectionView.reloadData()
-//        guard let titles = self.diaryList?.compactMap({ $0.title }) else { return }
-//        print(titles)
     }
     
 }
@@ -49,14 +47,21 @@ extension StarViewController: UICollectionViewDataSource {
               let diary = self.diaryList?[indexPath.row]
         else { return UICollectionViewCell() }
         starCell.titleLabel.text = diary.title
-        print(diary.title, starCell.titleLabel.text!)
         starCell.dateLabel.text = DateUtil.dateToStringShortFormat(date: diary.date)
         return starCell
     }
 }
 
 // MARK: Delegate
-extension StarViewController: UICollectionViewDelegateFlowLayout {
+extension StarViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let diaryDetailViewController = self.storyboard?.instantiateViewController(identifier: "DiaryDetailViewController") as? DiaryDetailViewController,
+              let selectedDiary = self.diaryList?[indexPath.row]
+        else { return }
+        diaryDetailViewController.diary = selectedDiary
+        self.navigationController?.pushViewController(diaryDetailViewController, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: Double = 10
         let screenWidth: Double = Double(UIScreen.main.bounds.width)

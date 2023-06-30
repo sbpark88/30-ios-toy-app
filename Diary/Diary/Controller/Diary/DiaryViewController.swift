@@ -24,9 +24,13 @@ class DiaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configurCollectionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         if let savedDiaryList = self.store.loadDiaryList() {
             self.diaryList = savedDiaryList
         }
+        print(diaryList)
     }
 }
 
@@ -57,12 +61,11 @@ extension DiaryViewController: UICollectionViewDataSource {
 // MARK: Delegate
 extension DiaryViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let diaryDeatilViewController = self.storyboard?.instantiateViewController(identifier: "DiaryDetailViewController") as? DiaryDetailViewController else { return }
+        guard let diaryDetailViewController = self.storyboard?.instantiateViewController(identifier: "DiaryDetailViewController") as? DiaryDetailViewController else { return }
         let selectedDiary = self.diaryList[indexPath.row]
-        diaryDeatilViewController.diary = selectedDiary
-        diaryDeatilViewController.indexPath = indexPath
-        diaryDeatilViewController.delegate = self
-        self.navigationController?.pushViewController(diaryDeatilViewController, animated: true)
+        diaryDetailViewController.diary = selectedDiary
+        diaryDetailViewController.delegate = self
+        self.navigationController?.pushViewController(diaryDetailViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -86,11 +89,7 @@ extension DiaryViewController: WriteDiaryViewDelegate {
 }
 
 extension DiaryViewController: DiaryDetailViewDelegate {
-    func deleteDiary(indexPath: IndexPath) {
-        self.diaryList.remove(at: indexPath.row)
-    }
-    
-    func updateDiary(indxPath: IndexPath, diary: Diary) {
-        self.diaryList[indxPath.row] = diary
+    func deleteDiary(diary: Diary) {
+        diaryList = diaryList.filter { $0.id != diary.id }
     }
 }
