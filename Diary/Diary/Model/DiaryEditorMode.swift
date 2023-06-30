@@ -9,5 +9,5 @@ import Foundation
 
 enum DiaryEditorMode {
     case new
-    case edit(IndexPath, Diary)
+    case edit(Diary)
 }

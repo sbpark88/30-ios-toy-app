@@ -17,6 +17,7 @@ class WriteDiaryViewController: UIViewController {
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var confirmButton: UIBarButtonItem!
+    lazy var store = Store()
     
     private let datePicker = UIDatePicker()
     private var diaryDate: Date?
@@ -42,8 +43,12 @@ class WriteDiaryViewController: UIViewController {
         guard let diary = generateDiary() else { return }
         switch self.diaryEditorMode {
         case .new: saveNewDiary(diary: diary)
-        case let .edit(indexPath, _): editDiary(indexPath: indexPath, diary: diary)
-        }
+        case let .edit(oldDiary): editDiary(diary: Diary(id: oldDiary.id,
+                                                         title: diary.title,
+                                                         content: diary.content,
+                                                         date: diary.date,
+                                                         favorite: oldDiary.favorite
+                                                        ))}
     }
     
     private func saveNewDiary(diary: Diary) {
@@ -51,11 +56,10 @@ class WriteDiaryViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    private func editDiary(indexPath: IndexPath, diary: Diary) {
+    private func editDiary(diary: Diary) {
         let diaryEditNotificationPublisher = Notification(
             name: Notification.Name("editDiary"),
-            object: diary,
-            userInfo: ["indexPath": indexPath]
+            object: diary
         )
         NotificationCenter.default.post(diaryEditNotificationPublisher)
         self.navigationController?.popViewController(animated: true)
@@ -65,8 +69,7 @@ class WriteDiaryViewController: UIViewController {
         guard let title = self.titleTextField.text else { return nil }
         guard let content = self.contentTextView.text else { return nil }
         guard let date = self.diaryDate else { return nil }
-        print(content)
-        return Diary(title: title, content: content, date: date)
+        return Diary(id: UUID().uuidString, title: title, content: content, date: date)
     }
 }
 
@@ -100,7 +103,7 @@ extension WriteDiaryViewController {
     private func setDiaryEditorMode() {
         switch self.diaryEditorMode {
         case .new: diaryModeIsNewDiary()
-        case let .edit(_, diary): diaryModeIsEditDiary(diary: diary)
+        case let .edit(diary): diaryModeIsEditDiary(diary: diary)
         }
     }
     
