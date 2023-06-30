@@ -30,7 +30,6 @@ class DiaryViewController: UIViewController {
         if let savedDiaryList = self.store.loadDiaryList() {
             self.diaryList = savedDiaryList
         }
-        print(diaryList)
     }
 }
 
@@ -64,7 +63,6 @@ extension DiaryViewController: UICollectionViewDelegate, UICollectionViewDelegat
         guard let diaryDetailViewController = self.storyboard?.instantiateViewController(identifier: "DiaryDetailViewController") as? DiaryDetailViewController else { return }
         let selectedDiary = self.diaryList[indexPath.row]
         diaryDetailViewController.diary = selectedDiary
-        diaryDetailViewController.delegate = self
         self.navigationController?.pushViewController(diaryDetailViewController, animated: true)
     }
     
@@ -85,11 +83,5 @@ extension DiaryViewController: WriteDiaryViewDelegate {
         if let writeDiaryViewController = segue.destination as? WriteDiaryViewController {
             writeDiaryViewController.delegate = self
         }
-    }
-}
-
-extension DiaryViewController: DiaryDetailViewDelegate {
-    func deleteDiary(diary: Diary) {
-        diaryList = diaryList.filter { $0.id != diary.id }
     }
 }

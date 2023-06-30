@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol DiaryDetailViewDelegate: AnyObject {
-    func deleteDiary(diary: Diary)
-}
-
 class DiaryDetailViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -18,8 +14,6 @@ class DiaryDetailViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     var favoriteButton: UIBarButtonItem?
     lazy var store = Store()
-    
-    weak var delegate: DiaryDetailViewDelegate?
     
     var diary: Diary?
     
@@ -41,7 +35,7 @@ class DiaryDetailViewController: UIViewController {
     }
     
     @IBAction func tapDeleteButton(_ sender: UIButton) {
-        self.delegate?.deleteDiary(diary: diary!)
+        self.store.deleteDiary(diary: diary!)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -58,7 +52,7 @@ class DiaryDetailViewController: UIViewController {
         guard let diary = notification.object as? Diary else { return }
         self.diary = diary
         self.configureView()    // Diary 를 화면에 보여주는 함수
-        self.store.updateDiaryList(diary: diary)
+        self.store.updateDiary(diary: diary)
     }
 }
 
@@ -79,6 +73,6 @@ extension DiaryDetailViewController {
         guard let isFavorite = self.diary?.favorite else { return }
         self.favoriteButton?.image = isFavorite ? UIImage(systemName: "star") : UIImage(systemName: "star.fill")
         self.diary?.favorite = !isFavorite
-        self.store.updateDiaryList(diary: diary!)
+        self.store.updateDiary(diary: diary!)
     }
 }

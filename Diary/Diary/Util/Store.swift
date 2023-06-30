@@ -38,15 +38,21 @@ struct Store {
         return diaryList
     }
     
-    func updateDiaryList(diary: Diary) {
+    func updateDiary(diary: Diary) {
         guard let oldDiaryList = self.loadDiaryList() else { return }
         let newDiaryList = oldDiaryList.map { $0.id == diary.id ? diary : $0 }
         self.saveDiaryList(diaryList: newDiaryList)
     }
     
+    func deleteDiary(diary: Diary) {
+        guard let oldDiaryList = self.loadDiaryList() else { return }
+        let newDiaryList = oldDiaryList.filter { $0.id != diary.id }
+        self.saveDiaryList(diaryList: newDiaryList)
+    }
+    
     func getLastId() -> String? {
-        guard let oldDiaryLst = self.loadDiaryList() else { return nil }
-        return oldDiaryLst.max { $0.id < $1.id }?.id
+        guard let oldDiaryList = self.loadDiaryList() else { return nil }
+        return oldDiaryList.max { $0.id < $1.id }?.id
     }
     
     func generateId() -> String {
