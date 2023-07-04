@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Pomodoro" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pomodoro" translatesAutoresizingMaskIntoConstraints="NO" id="Bfp-JA-vVX">
+                                <rect key="frame" x="146.66666666666666" y="83" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="7mt-ea-gCz"/>
+                                    <constraint firstAttribute="width" constant="100" id="usr-iG-nWy"/>
+                                </constraints>
+                            </imageView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBm-0i-wtR">
+                                <rect key="frame" x="24" y="263" width="345" height="60"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="X7q-bU-xmP">
+                                <rect key="frame" x="48" y="353" width="297" height="4"/>
+                            </progressView>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" style="wheels" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5PZ-6f-amI">
+                                <rect key="frame" x="0.0" y="213" width="393" height="216"/>
+                            </datePicker>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="ESl-QU-bmo">
+                                <rect key="frame" x="24" y="453" width="345" height="34.333333333333314"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Yk-wl-oyr">
+                                        <rect key="frame" x="0.0" y="0.0" width="132.66666666666666" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="취소"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3h-xe-OUj">
+                                        <rect key="frame" x="212.66666666666663" y="0.0" width="132.33333333333337" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="시작"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ESl-QU-bmo" firstAttribute="top" secondItem="5PZ-6f-amI" secondAttribute="bottom" constant="24" id="65Q-YW-USw"/>
+                            <constraint firstItem="X7q-bU-xmP" firstAttribute="top" secondItem="jBm-0i-wtR" secondAttribute="bottom" constant="30" id="9Ao-Vp-ZVD"/>
+                            <constraint firstItem="Bfp-JA-vVX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="Jrw-bB-jl7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ESl-QU-bmo" secondAttribute="trailing" constant="24" id="NOg-Bn-pXE"/>
+                            <constraint firstItem="jBm-0i-wtR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="NgM-pR-m4Q"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5PZ-6f-amI" secondAttribute="trailing" id="Sa5-D1-gOe"/>
+                            <constraint firstItem="Bfp-JA-vVX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="StZ-qX-9UR"/>
+                            <constraint firstItem="5PZ-6f-amI" firstAttribute="top" secondItem="Bfp-JA-vVX" secondAttribute="bottom" constant="30" id="bEF-CT-fst"/>
+                            <constraint firstItem="ESl-QU-bmo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="e7t-0t-CTT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="X7q-bU-xmP" secondAttribute="trailing" constant="48" id="isE-1y-5kd"/>
+                            <constraint firstAttribute="trailing" secondItem="jBm-0i-wtR" secondAttribute="trailing" constant="24" id="m1K-no-0OO"/>
+                            <constraint firstItem="X7q-bU-xmP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="sWT-7E-Y8v"/>
+                            <constraint firstItem="jBm-0i-wtR" firstAttribute="top" secondItem="Bfp-JA-vVX" secondAttribute="bottom" constant="80" id="t26-eT-pR2"/>
+                            <constraint firstItem="5PZ-6f-amI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yX5-zI-OZN"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="135.1145038167939" y="3.5211267605633805"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Pomodoro" width="42.666667938232422" height="42.666667938232422"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
