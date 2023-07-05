@@ -10,6 +10,9 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
+    
+    @IBOutlet weak var tomato: UIImageView!
+    
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -27,11 +30,6 @@ class ViewController: UIViewController {
         self.configureToggleButton()
     }
     
-    func setTimerInfoViewVisible(isHidden: Bool) {
-        self.timerLabel.isHidden = isHidden
-        self.progressBar.isHidden = isHidden
-    }
-    
     func startTimer() {
         if timer == nil {
             timer = DispatchSource.makeTimerSource(flags: [], queue: .main)
@@ -47,6 +45,12 @@ class ViewController: UIViewController {
                 
                 self?.timerLabel.text = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
                 self?.progressBar.progress = Float(remainTime) / Float(countDownSeconds)
+                UIView.animate(withDuration: 0.5, delay: 0) {
+                    self?.tomato.transform = CGAffineTransform(rotationAngle: .pi)
+                }
+                UIView.animate(withDuration: 0.5, delay: 0.5) {
+                    self?.tomato.transform = CGAffineTransform(rotationAngle: .pi * 2)
+                }
                 
                 if remainTime <= 0 {
                     self?.stopTimer()
@@ -63,8 +67,12 @@ class ViewController: UIViewController {
         }
         timerStatus = .end
         cancelButton.isEnabled = false
-        setTimerInfoViewVisible(isHidden: true)
-        datePicker.isHidden = false
+        UIView.animate(withDuration: 0.5) {
+            self.timerLabel.alpha = 0
+            self.progressBar.alpha = 0
+            self.datePicker.alpha = 1
+            self.tomato.transform = .identity
+        }
         confirmButton.isSelected = false
         timer?.cancel()
         timer = nil
@@ -88,8 +96,11 @@ class ViewController: UIViewController {
         case .end:
             remainTime = countDownSeconds
             timerStatus = .start
-            setTimerInfoViewVisible(isHidden: false)
-            datePicker.isHidden = true
+            UIView.animate(withDuration: 0.5) {
+                self.timerLabel.alpha = 1
+                self.progressBar.alpha = 1
+                self.datePicker.alpha = 0
+            }
             confirmButton.isSelected = true
             cancelButton.isEnabled = true
             startTimer()
