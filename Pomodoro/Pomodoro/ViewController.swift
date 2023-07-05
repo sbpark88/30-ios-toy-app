@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class ViewController: UIViewController {
     
@@ -36,11 +37,20 @@ class ViewController: UIViewController {
             timer = DispatchSource.makeTimerSource(flags: [], queue: .main)
             timer?.schedule(deadline: .now(), repeating: 1)
             timer?.setEventHandler(handler: { [weak self] in
+                guard let remainTime = self?.remainTime,
+                      let countDownSeconds = self?.countDownSeconds else { self?.stopTimer();return }
                 self?.remainTime -= 1
-                debugPrint(self?.remainTime as Any)
                 
-                if self?.remainTime ?? 0 <= 0 {
+                let hours = remainTime / 3600
+                let minutes = (remainTime % 3600) / 60
+                let seconds = (remainTime % 3600) % 60
+                
+                self?.timerLabel.text = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+                self?.progressBar.progress = Float(remainTime) / Float(countDownSeconds)
+                
+                if remainTime <= 0 {
                     self?.stopTimer()
+                    AudioServicesPlayAlertSound(1005)
                 }
             })
             timer?.resume()
