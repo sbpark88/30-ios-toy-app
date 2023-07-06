@@ -10,6 +10,9 @@ import AudioToolbox
 
 final class Timer {
     
+    typealias TimerEventHandler = (Int, Int) -> ()
+    typealias TimerStatusChangeHandler = (TimerStatus) -> ()
+    
     private let AN_HOUR_SECONDS = 3600
     private let A_MINUTE_SECONDS = 60
     private let TIMER_END_ALARM_SOUND: SystemSoundID = 1005
@@ -25,8 +28,8 @@ final class Timer {
         self.remainTime = countDownSeconds
     }
     
-    func startTimer(timerEventHandler: @escaping (Int, Int) -> (),
-                    timerDidEnd: @escaping () -> ()) -> TimerStatus? {
+    func startTimer(timerEventHandler: @escaping TimerEventHandler,
+                    timerDidEnd: @escaping TimerStatusChangeHandler) -> TimerStatus? {
         guard countDownSeconds > 0, timer == nil else { return nil }
         timer = DispatchSource.makeTimerSource(flags: [], queue: .main)
         timer?.schedule(deadline: .now(), repeating: 1) // interval: 1 second
@@ -39,35 +42,32 @@ final class Timer {
             remainTime -= 1
             timerEventHandler(remainTime, countDownSeconds)
             if remainTime <= 0 {
-                _ = stopTimer(timerDidEnd: timerDidEnd)
+                stopTimer(timerDidEnd: timerDidEnd)
                 AudioServicesPlayAlertSound(TIMER_END_ALARM_SOUND)
             }
         }
     }
     
-    func pauseTimer(timerDidPause: () -> ()) -> TimerStatus? {
-        timerDidPause()
+    func pauseTimer(timerDidPause: TimerStatusChangeHandler) {
         timer?.suspend()
         timerStatus = .pause
-        return timerStatus
+        timerDidPause(timerStatus)
     }
     
-    func resumeTimer(timerDidResume: () -> ()) -> TimerStatus? {
-        timerDidResume()
+    func resumeTimer(timerDidResume: TimerStatusChangeHandler) {
         timer?.resume()
         timerStatus = .start
-        return timerStatus
+        timerDidResume(timerStatus)
     }
     
-    func stopTimer(timerDidEnd: () -> ()) -> TimerStatus? {
+    func stopTimer(timerDidEnd: TimerStatusChangeHandler) {
         if timerStatus == .pause {
             timer?.resume()
         }
         timer?.cancel()
         timer = nil
-        timerDidEnd()
         timerStatus = .end
-        return timerStatus
+        timerDidEnd(timerStatus)
     }
 }
 
@@ -92,7 +92,7 @@ extension Timer {
 protocol SimpleTimer {
     var timerStatus: TimerStatus { get set }
     mutating func timerEventHandler(remainSeconds: Int, totalSeconds: Int)
-    mutating func timerDidPause()
-    mutating func timerDidResume()
-    mutating func timerDidEnd()
+    mutating func timerDidPause(timerStatus: TimerStatus)
+    mutating func timerDidResume(timerStatus: TimerStatus)
+    mutating func timerDidEnd(timerStatus: TimerStatus)
 }

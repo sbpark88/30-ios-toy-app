@@ -10,7 +10,6 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
-    
     @IBOutlet weak var tomato: UIImageView!
     
     @IBOutlet weak var timerLabel: UILabel!
@@ -32,12 +31,7 @@ class ViewController: UIViewController {
     
     @IBAction func tapCancelButton(_ sender: UIButton) {
         if timerStatus == .end { return }
-        let status = timer?.stopTimer(timerDidEnd: timerDidEnd)
-        if let status {
-            timerStatus = status
-            changeUiSettingMode()
-            changeConfirmButtonSettingMode()
-        }
+        timer?.stopTimer(timerDidEnd: timerDidEnd)
     }
     
     @IBAction func tapConfirmButton(_ sender: UIButton) {
@@ -56,32 +50,25 @@ class ViewController: UIViewController {
     
     private func startTimer(countDownSeconds: Int) {
         timer = Timer(countDownSeconds: countDownSeconds)
-        let status = timer?.startTimer(timerEventHandler: timerEventHandler(remainSeconds:totalSeconds:), timerDidEnd: timerDidEnd)
+        let status = timer?.startTimer(timerEventHandler: timerEventHandler(remainSeconds:totalSeconds:),
+                                       timerDidEnd: timerDidEnd(timerStatus:))
         if let status {
             timerStatus = status
         }
     }
     
     private func pauseTimer() {
-        let status = timer?.pauseTimer(timerDidPause: timerDidPause)
-        if let status {
-            timerStatus = status
-        }
+        timer?.pauseTimer(timerDidPause: timerDidPause)
     }
     
     private func resumeTimer() {
-        let status = timer?.resumeTimer(timerDidResume: timerDidResume)
-        if let status {
-            timerStatus = status
-        }
+        timer?.resumeTimer(timerDidResume: timerDidResume)
     }
     
     private func endTimer() {
-        let status = timer?.stopTimer(timerDidEnd: timerDidEnd)
-        if let status {
-            timerStatus = status
-        }
+        timer?.stopTimer(timerDidEnd: timerDidEnd)
     }
+    
 }
 
 // MARK: Adopt SimpleTimer Protocol
@@ -97,16 +84,20 @@ extension ViewController: SimpleTimer {
         rotateTomato()
     }
     
-    func timerDidPause() {
+    func timerDidPause(timerStatus: TimerStatus) {
+        self.timerStatus = timerStatus
         changeConfirmButtonPauseMode()
     }
     
-    func timerDidResume() {
+    func timerDidResume(timerStatus: TimerStatus) {
+        self.timerStatus = timerStatus
         changeConfirmButtonResumeMode()
     }
     
-    func timerDidEnd() {
-        changeConfirmButtonSettingMode()
+    func timerDidEnd(timerStatus: TimerStatus) {
+        self.timerStatus = timerStatus
+        changeUiSettingMode()
+        resetConfirmButtonSettingMode()
     }
     
 }
@@ -143,7 +134,7 @@ extension ViewController {
     }
     
     // confirm button
-    func changeConfirmButtonSettingMode() {
+    func resetConfirmButtonSettingMode() {
         confirmButton.isSelected = false
         confirmButton.setTitle("시작", for: .normal)
     }
