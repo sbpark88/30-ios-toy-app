@@ -15,10 +15,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var maxTempLabel: UILabel!
     @IBOutlet weak var minTempLabel: UILabel!
+    @IBOutlet weak var weatherStackView: UIStackView!
+
+    let successRange: Range<Int> = (200..<300)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.weatherStackView.isHidden = true
     }
 
     @IBAction func tapFetchWeatherButton(_ sender: UIButton) {
@@ -33,16 +36,41 @@ class ViewController: UIViewController {
             return
         }
         let session = URLSession(configuration: .default)
-        session.dataTask(with: url) { data, response, error in
-            if let error {
-                print(error)
+        session.dataTask(with: url) { [weak self] data, response, error in
+            guard let data, error == nil else {
+                debugPrint(error!)
                 return
             }
-            guard let data else { return }
             let decoder = JSONDecoder()
-            let weatherInformation = try? decoder.decode(WeatherInformation.self, from: data)
-            debugPrint(weatherInformation)
+            if let response = response as? HTTPURLResponse, self!.successRange.contains(response.statusCode) {
+                guard let weatherInformation = try? decoder.decode(WeatherInformation.self, from: data) else { return }
+                DispatchQueue.main.async {
+                    self?.weatherStackView.isHidden = false
+                    self?.configureView(weatherInformaton: weatherInformation)
+                }
+            } else {
+                guard let errorMessage = try? decoder.decode(ErrorMessage.self, from: data) else { return}
+                DispatchQueue.main.async {
+                    self?.showAlert(message: errorMessage.message)
+                }
+            }
         }.resume()
     }
 
+}
+
+extension ViewController {
+    func configureView(weatherInformaton: WeatherInformation) {
+        cityNameLabel.text = weatherInformaton.name
+        weatherDescriptionLabel.text = weatherInformaton.weather.first?.description
+        tempLabel.text = "\(weatherInformaton.temp.temp)℃"
+        maxTempLabel.text = "최고 : \(weatherInformaton.temp.maxTemp)℃"
+        minTempLabel.text = "최저 : \(weatherInformaton.temp.minTemp)℃"
+    }
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "에러", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }
