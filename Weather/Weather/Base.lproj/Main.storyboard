@@ -26,11 +26,14 @@
                                 <rect key="frame" x="138.33333333333334" y="147" width="116.66666666666666" height="34.333333333333343"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="날씨 가져오기"/>
+                                <connections>
+                                    <action selector="tapFetchWeatherButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7EP-Qg-MlQ"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Su0-aD-IN9">
                                 <rect key="frame" x="24" y="231.33333333333331" width="345" height="137.33333333333331"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="HSn-Xf-eT4">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="HSn-Xf-eT4">
                                         <rect key="frame" x="155.33333333333334" y="0.0" width="34.666666666666657" height="56"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서울" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ba7-vu-ma6">
@@ -91,6 +94,14 @@
                             <constraint firstItem="1rO-ak-7Qp" firstAttribute="top" secondItem="MFl-gs-PPN" secondAttribute="bottom" constant="24" id="tmk-xV-dVZ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cityNameLabel" destination="ba7-vu-ma6" id="KsW-ta-Amk"/>
+                        <outlet property="cityNameTextField" destination="MFl-gs-PPN" id="j3w-hf-kON"/>
+                        <outlet property="maxTempLabel" destination="z01-TR-RgQ" id="mce-3j-7yg"/>
+                        <outlet property="minTempLabel" destination="wxv-hm-2Rq" id="lDx-62-1ZT"/>
+                        <outlet property="tempLabel" destination="vMy-ZU-ZGM" id="fnD-5P-ksR"/>
+                        <outlet property="weatherDescriptionLabel" destination="Ig2-A4-7PM" id="nAk-tq-xum"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
