@@ -14,6 +14,7 @@
 		E903EBF72AEE7C870010E7C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E903EBF52AEE7C870010E7C4 /* Main.storyboard */; };
 		E903EBF92AEE7C880010E7C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E903EBF82AEE7C880010E7C4 /* Assets.xcassets */; };
 		E903EBFC2AEE7C880010E7C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E903EBFA2AEE7C880010E7C4 /* LaunchScreen.storyboard */; };
+		E9E5FDCF2AEE92B700DDA6F9 /* CovidDetailViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5FDCE2AEE92B700DDA6F9 /* CovidDetailViewControllerTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		E903EBF82AEE7C880010E7C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E903EBFB2AEE7C880010E7C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E903EBFD2AEE7C880010E7C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9E5FDCE2AEE92B700DDA6F9 /* CovidDetailViewControllerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidDetailViewControllerTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				E903EBF82AEE7C880010E7C4 /* Assets.xcassets */,
 				E903EBFA2AEE7C880010E7C4 /* LaunchScreen.storyboard */,
 				E903EBFD2AEE7C880010E7C4 /* Info.plist */,
+				E9E5FDCE2AEE92B700DDA6F9 /* CovidDetailViewControllerTableViewController.swift */,
 			);
 			path = COVID19;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				E903EBF42AEE7C870010E7C4 /* ViewController.swift in Sources */,
 				E903EBF02AEE7C870010E7C4 /* AppDelegate.swift in Sources */,
 				E903EBF22AEE7C870010E7C4 /* SceneDelegate.swift in Sources */,
+				E9E5FDCF2AEE92B700DDA6F9 /* CovidDetailViewControllerTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
