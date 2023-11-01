@@ -26,6 +26,10 @@ struct CityCovidOverview: Codable {
     let gyeongbuk: CovidOverview
     let gyeongnam: CovidOverview
     let jeju: CovidOverview
+
+    var allCities: [CovidOverview] {
+        Mirror(reflecting: self).children.compactMap { $0.value as? CovidOverview }
+    }
 }
 
 struct CovidOverview: Codable {

@@ -10,7 +10,8 @@ import UIKit
 import Alamofire
 
 protocol CityCovidManagerDelegate {
-    func didUpdateCityCovidOverview()
+    func didUpdateCityCovidOverview(_ covid: CovidOverview)
+    func didUpdatePieChartView(_ covidByCity: [CovidOverview])
 }
 
 typealias fetchCityCovidHandler = (Result<CityCovidOverview, Error>) -> Void
@@ -23,6 +24,10 @@ struct CityCovidManager {
     ]
 
     var delegate: CityCovidManagerDelegate?
+    
+    init(delegate: CityCovidManagerDelegate) {
+        self.delegate = delegate
+    }
 
     func fetchCityCovidOverview(completionHandler: @escaping fetchCityCovidHandler) {
         AF.request(cityCovidUrl, method: .get, parameters: parameters)
