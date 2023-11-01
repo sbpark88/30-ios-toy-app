@@ -60,21 +60,28 @@
                                 <rect key="frame" x="24" y="211.66666666666669" width="345" height="582.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="3rF-1W-tNM">
+                                <rect key="frame" x="186.66666666666666" y="416" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="3xc-uh-Vj6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="9nd-11-wQL"/>
+                            <constraint firstItem="3rF-1W-tNM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KiH-W9-n3k"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="T0i-9K-SRY" secondAttribute="bottom" constant="24" id="TcE-vv-Yqx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3xc-uh-Vj6" secondAttribute="trailing" constant="24" id="VCf-31-ap6"/>
                             <constraint firstItem="T0i-9K-SRY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="VTM-Jd-DRl"/>
                             <constraint firstItem="3xc-uh-Vj6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="e5Y-ia-SfI"/>
+                            <constraint firstItem="3rF-1W-tNM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fHg-Ct-zI8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="T0i-9K-SRY" secondAttribute="trailing" constant="24" id="gYt-BA-Hfn"/>
                             <constraint firstItem="T0i-9K-SRY" firstAttribute="top" secondItem="3xc-uh-Vj6" secondAttribute="bottom" constant="24" id="p5d-FD-v4p"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GsT-lf-Nq5"/>
                     <connections>
+                        <outlet property="labelStackView" destination="3xc-uh-Vj6" id="k9G-B7-xBy"/>
+                        <outlet property="loadingIndicator" destination="3rF-1W-tNM" id="h6s-ix-xvA"/>
                         <outlet property="newCaseLabel" destination="i3k-WT-3Vb" id="6om-TF-q1V"/>
                         <outlet property="pieChartView" destination="T0i-9K-SRY" id="Ywf-W6-kLc"/>
                         <outlet property="totalCaseLabel" destination="KA3-RE-yPE" id="gAu-eV-kIz"/>
@@ -82,12 +89,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="543" y="154"/>
+            <point key="canvasLocation" x="542.74809160305347" y="153.52112676056339"/>
         </scene>
         <!--Covid Detail View Controller-->
         <scene sceneID="4Xa-9r-9qi">
             <objects>
-                <tableViewController id="MVe-eE-aei" customClass="CovidDetailViewController" customModule="COVID19" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CovidDetailViewController" id="MVe-eE-aei" customClass="CovidDetailViewController" customModule="COVID19" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="3CK-C9-Kkl">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -272,7 +279,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="deathCell" destination="azz-sd-ZZQ" id="LCq-9N-tRe"/>
+                        <outlet property="deathCell" destination="EKL-wm-vdg" id="nfZ-Yy-X5V"/>
                         <outlet property="newCaseCell" destination="MHn-hl-b39" id="aJV-LB-iA3"/>
                         <outlet property="overseasInflowCell" destination="GFM-GB-FLS" id="T6s-3J-28Y"/>
                         <outlet property="percentageCell" destination="azz-sd-ZZQ" id="Ptb-Ga-qc3"/>

@@ -10,15 +10,17 @@ import DGCharts
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var labelStackView: UIStackView!
     @IBOutlet weak var totalCaseLabel: UILabel!
     @IBOutlet weak var newCaseLabel: UILabel!
-
     @IBOutlet weak var pieChartView: PieChartView!
-
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     var cityCovidManager: CityCovidManager!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        isLoadingNow(true)
         cityCovidManager = CityCovidManager(delegate: self)
         getCityCovidOverview()
     }
@@ -26,6 +28,7 @@ class ViewController: UIViewController {
     func getCityCovidOverview() {
         cityCovidManager.fetchCityCovidOverview { [weak self] result in
             guard let self else { return } // 일시적으로 strong reference 가 되도록 한다.
+            isLoadingNow(false)
             switch result {
             case let .success(result):
                 // AF 는 기본적으로 메인 스레드에서 실행되기 때문에 직접 "DispatchQueue" 를 만들지 않는다.
@@ -35,6 +38,13 @@ class ViewController: UIViewController {
                 debugPrint("Error: \(error)명")
             }
         }
+    }
+    
+    func isLoadingNow(_ loading: Bool) {
+        loading ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
+        loadingIndicator.isHidden = !loading
+        labelStackView.isHidden = loading
+        pieChartView.isHidden = loading
     }
 
 }
@@ -47,6 +57,7 @@ extension ViewController: CityCovidManagerDelegate {
     }
 
     func didUpdatePieChartView(_ covidByCity: [CovidOverview]) {
+        pieChartView.delegate = self
         let entries = covidByCity.compactMap { [weak self] overview -> PieChartDataEntry? in
             guard let self else { return nil }
             return PieChartDataEntry(
@@ -76,4 +87,15 @@ extension ViewController: CityCovidManagerDelegate {
         return formatter.number(from: str)?.doubleValue ?? 0
     }
 
+}
+
+extension ViewController: ChartViewDelegate {
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        guard let covidDetailViewController = storyboard?.instantiateViewController(identifier: "CovidDetailViewController") as? CovidDetailViewController else { return }
+        guard let selectedCityCovidOverview = entry.data as? CovidOverview else { return }
+        covidDetailViewController.selectedCityCovidOverview = selectedCityCovidOverview
+        navigationController?.pushViewController(covidDetailViewController, animated: true)
+    }
+    
 }
