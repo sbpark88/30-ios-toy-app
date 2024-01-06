@@ -6,24 +6,29 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MainViewViewController: UIViewController {
-
+    
+    @IBOutlet weak var welcomeLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = true
+        
+        // 더이상 뒤로가기가 안 되도록 막는다(=view stack 의 pop 을 막는다).
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        
+        let email = Auth.auth().currentUser?.email ?? "고객"
+        
+        welcomeLabel.text = """
+        환영합니다.
+        \(email)님
+        """
+    }
 
-        // Do any additional setup after loading the view.
+    @IBAction func logoutButtonTapped(_ sender: Any) {
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
