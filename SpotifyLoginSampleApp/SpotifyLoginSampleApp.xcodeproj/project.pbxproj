@@ -13,9 +13,9 @@
 		E9175E112B456BAD0022DF84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9175E102B456BAD0022DF84 /* Assets.xcassets */; };
 		E9175E142B456BAD0022DF84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9175E122B456BAD0022DF84 /* LaunchScreen.storyboard */; };
 		E9175E1C2B456BF40022DF84 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9175E1B2B456BF40022DF84 /* LoginViewController.swift */; };
-		E95619A72B47E56B0052DA45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95619A62B47E56B0052DA45 /* GoogleService-Info.plist */; };
 		E9B513B42B46915A0034079E /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B513B32B46915A0034079E /* EmailLoginViewController.swift */; };
 		E9CA5C9D2B46AB2000B970C9 /* MainViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CA5C9C2B46AB2000B970C9 /* MainViewViewController.swift */; };
+		E9E052A12B4B906C0068049B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9E052A02B4B906C0068049B /* GoogleService-Info.plist */; };
 		F188B59669B57C1C78F3CD5D /* Pods_SpotifyLoginSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9658E6075EEA60A3ED024C8 /* Pods_SpotifyLoginSampleApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,9 +30,9 @@
 		E9175E132B456BAD0022DF84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9175E152B456BAD0022DF84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9175E1B2B456BF40022DF84 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		E95619A62B47E56B0052DA45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E9B513B32B46915A0034079E /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		E9CA5C9C2B46AB2000B970C9 /* MainViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewViewController.swift; sourceTree = "<group>"; };
+		E9E052A02B4B906C0068049B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F9658E6075EEA60A3ED024C8 /* Pods_SpotifyLoginSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotifyLoginSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -93,7 +93,7 @@
 				E9175E102B456BAD0022DF84 /* Assets.xcassets */,
 				E9175E122B456BAD0022DF84 /* LaunchScreen.storyboard */,
 				E9175E152B456BAD0022DF84 /* Info.plist */,
-				E95619A62B47E56B0052DA45 /* GoogleService-Info.plist */,
+				E9E052A02B4B906C0068049B /* GoogleService-Info.plist */,
 				E9B513B32B46915A0034079E /* EmailLoginViewController.swift */,
 				E9CA5C9C2B46AB2000B970C9 /* MainViewViewController.swift */,
 			);
@@ -161,7 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9175E142B456BAD0022DF84 /* LaunchScreen.storyboard in Resources */,
-				E95619A72B47E56B0052DA45 /* GoogleService-Info.plist in Resources */,
+				E9E052A12B4B906C0068049B /* GoogleService-Info.plist in Resources */,
 				E9175E112B456BAD0022DF84 /* Assets.xcassets in Resources */,
 				E9175E0F2B456BAB0022DF84 /* Main.storyboard in Resources */,
 			);
@@ -298,7 +298,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -355,7 +355,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

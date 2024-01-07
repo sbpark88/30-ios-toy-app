@@ -6,13 +6,17 @@
 //
 
 import UIKit
+import FirebaseCore
+import GoogleSignIn
+import FirebaseAuth
 
-class LoginViewController: UIViewController {
 
+class LoginViewController: UIViewController, MainViewControllerDelegate {
+    
     @IBOutlet weak var emailLoginButton: UIButton!
-    @IBOutlet weak var googleLoginButton: UIButton!
+    @IBOutlet weak var googleLoginButton: GIDSignInButton!
     @IBOutlet weak var appleLoginButton: UIButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,8 +29,36 @@ class LoginViewController: UIViewController {
         }
         
     }
-
+    
     @IBAction func googleLoginButtonTapped(_ sender: Any) {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        
+        // Create Google Sign In configuration object
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        // Start the sign in flow.
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
+            guard error == nil else {
+                print("ERROR: \(error?.localizedDescription ?? "unknown error")")
+                return
+            }
+            
+            guard let user = result?.user, let idToken = user.idToken?.tokenString else { return }
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: user.accessToken.tokenString)
+            
+            // Authenticate Firebase Auth
+            Auth.auth().signIn(with: credential) { result, error in
+                guard error == nil else {
+                    print("ERROR: \(error?.localizedDescription ?? "unknown error")")
+                    return
+                }
+                self.loginSuccess(self)
+            }
+        }
+        
     }
     
     @IBAction func appleLoginButtonTapped(_ sender: Any) {

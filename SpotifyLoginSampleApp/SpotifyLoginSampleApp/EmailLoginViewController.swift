@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class EmailLoginViewController: UIViewController {
+class EmailLoginViewController: UIViewController, MainViewControllerDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -31,6 +31,8 @@ class EmailLoginViewController: UIViewController {
     }
     
     @IBAction func loginButtonTapped(_ sender: Any) {
+        loginButton.isEnabled = false
+        
         // Firebase 이메일/비밀번호 인증
         let email = emailTextField.text?.trimmingCharacters(in: .whitespaces) ?? ""
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespaces) ?? ""
@@ -45,20 +47,14 @@ class EmailLoginViewController: UIViewController {
                 case AuthErrorCode.emailAlreadyInUse.rawValue:
                     strongSelf.loginUser(withEmail: email, password: password)
                 default:
+                    strongSelf.loginButton.isEnabled = true
                     strongSelf.displayError(errorMessage: error.localizedDescription)
                 }
             } else {
-                strongSelf.loginSuccess()
+                strongSelf.loginSuccess(strongSelf)
             }
         }
         
-    }
-    
-    private func loginSuccess() {
-        let storyboard = UIStoryboard(name: "Main", bundle: .main)
-        let mainViewController = storyboard.instantiateViewController(identifier: "MainViewController")
-        mainViewController.modalPresentationStyle = .fullScreen
-        navigationController?.show(mainViewController, sender: nil)
     }
     
     private func loginUser(withEmail email: String, password: String) {
@@ -68,7 +64,7 @@ class EmailLoginViewController: UIViewController {
             if let error {
                 strongSelf.displayError(errorMessage: error.localizedDescription)
             } else {
-                strongSelf.loginSuccess()
+                strongSelf.loginSuccess(strongSelf)
             }
         }
     }

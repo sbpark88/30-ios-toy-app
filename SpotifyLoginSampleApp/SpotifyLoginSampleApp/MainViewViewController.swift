@@ -26,9 +26,29 @@ class MainViewViewController: UIViewController {
         \(email)님
         """
     }
-
+    
     @IBAction func logoutButtonTapped(_ sender: Any) {
-        self.navigationController?.popToRootViewController(animated: true)
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            self.navigationController?.popToRootViewController(animated: true)
+        } catch let signOutError as NSError {
+            print("Error signing out: \(signOutError.localizedDescription)")
+        }
+        
     }
     
+}
+
+protocol MainViewControllerDelegate {
+    func loginSuccess(_ selfUiViewController: UIViewController) -> Void
+}
+
+extension MainViewControllerDelegate {
+    func loginSuccess(_ selfUiViewController: UIViewController) {
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        let mainViewController = storyboard.instantiateViewController(identifier: "MainViewController")
+        mainViewController.modalPresentationStyle = .fullScreen
+        selfUiViewController.navigationController?.show(mainViewController, sender: nil)
+    }
 }
