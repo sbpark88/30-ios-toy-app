@@ -11,6 +11,7 @@ import FirebaseAuth
 class MainViewViewController: UIViewController {
     
     @IBOutlet weak var welcomeLabel: UILabel!
+    @IBOutlet weak var resetPasswordButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,9 @@ class MainViewViewController: UIViewController {
         환영합니다.
         \(email)님
         """
+        
+        // OAuth 인증이 아닌 이메일/비밀번호 인증일 경우에만 비밀번호 변경이 노출
+        resetPasswordButton.isHidden = !isEmailUser()
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
@@ -38,6 +42,19 @@ class MainViewViewController: UIViewController {
         
     }
     
+    private func isEmailUser() -> Bool {
+        Auth.auth().currentUser?.providerData[0].providerID == "password"
+    }
+    
+    @IBAction func resetPasswordButtonTapped(_ sender: Any) {
+        guard let email = Auth.auth().currentUser?.email else {
+            print("Cannot find user's email address.")
+            return
+        }
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            print("Error password reset: \(error?.localizedDescription ?? "unknown error")")
+        }
+    }
 }
 
 protocol MainViewControllerDelegate {
@@ -52,3 +69,4 @@ extension MainViewControllerDelegate {
         selfUiViewController.navigationController?.show(mainViewController, sender: nil)
     }
 }
+

@@ -224,11 +224,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pT9-yc-wB0">
+                                <rect key="frame" x="143.66666666666666" y="461" width="105.66666666666666" height="32"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="비밀번호 변경">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="resetPasswordButtonTapped:" destination="4sh-xy-A0O" eventType="touchUpInside" id="sxc-NZ-2e0"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rdO-st-ZYl">
-                                <rect key="frame" x="146.66666666666666" y="478" width="100" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="J8a-i5-rIU"/>
-                                </constraints>
+                                <rect key="frame" x="153.33333333333334" y="513" width="86.333333333333343" height="36"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="로그아웃">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
@@ -242,13 +250,16 @@
                         <viewLayoutGuide key="safeArea" id="Eph-VS-UVm"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="rdO-st-ZYl" firstAttribute="top" secondItem="her-gZ-Hso" secondAttribute="bottom" constant="37" id="Y0p-Jv-Sk6"/>
+                            <constraint firstItem="pT9-yc-wB0" firstAttribute="centerX" secondItem="her-gZ-Hso" secondAttribute="centerX" id="H9H-wg-3Wp"/>
+                            <constraint firstItem="pT9-yc-wB0" firstAttribute="top" secondItem="her-gZ-Hso" secondAttribute="bottom" constant="20" id="hEl-az-hhT"/>
                             <constraint firstItem="her-gZ-Hso" firstAttribute="centerX" secondItem="Odw-43-xPb" secondAttribute="centerX" id="lyL-Ge-FxP"/>
                             <constraint firstItem="rdO-st-ZYl" firstAttribute="centerX" secondItem="her-gZ-Hso" secondAttribute="centerX" id="m5a-qg-FT2"/>
+                            <constraint firstItem="rdO-st-ZYl" firstAttribute="top" secondItem="pT9-yc-wB0" secondAttribute="bottom" constant="20" id="pyv-T7-T4s"/>
                             <constraint firstItem="her-gZ-Hso" firstAttribute="centerY" secondItem="Odw-43-xPb" secondAttribute="centerY" id="qJh-Cy-3f6"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="resetPasswordButton" destination="pT9-yc-wB0" id="9OX-WB-GAT"/>
                         <outlet property="welcomeLabel" destination="her-gZ-Hso" id="omA-Rw-SZd"/>
                     </connections>
                 </viewController>
