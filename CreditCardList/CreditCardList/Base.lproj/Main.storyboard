@@ -58,11 +58,11 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bPD-4m-OIc" customClass="LottieAnimationView" customModule="Lottie">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="25X-Ff-6ei" customClass="LottieAnimationView" customModule="Lottie">
                                         <rect key="frame" x="0.0" y="87.000000000000028" width="353" height="199.99999999999997"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="200" id="osT-Xc-RU2"/>
+                                            <constraint firstAttribute="height" constant="200" id="oo6-ZR-Wms"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ltv-GP-ymw">
@@ -167,7 +167,7 @@
                         <outlet property="benfitDateLabel" destination="KGv-Gd-Efb" id="Wjs-B7-8lV"/>
                         <outlet property="benfitDetailLabel" destination="2TM-g0-kPU" id="Bal-a9-EOf"/>
                         <outlet property="conditionLabel" destination="lb8-KX-pIg" id="asn-Fa-zCl"/>
-                        <outlet property="lottieView" destination="bPD-4m-OIc" id="OtO-rK-4mx"/>
+                        <outlet property="lottieView" destination="25X-Ff-6ei" id="pbr-Dg-uUo"/>
                         <outlet property="periodLabel" destination="wjp-G2-9dB" id="2MX-ru-4cA"/>
                         <outlet property="titleLabel" destination="6oA-ar-RAI" id="nwU-CS-R0J"/>
                     </connections>
