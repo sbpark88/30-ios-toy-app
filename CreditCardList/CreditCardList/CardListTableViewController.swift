@@ -7,53 +7,71 @@
 
 import UIKit
 import Kingfisher
+import FirebaseDatabase
 
 class CardListTableViewController: UITableViewController {
-
+    
+    var ref: DatabaseReference! // Firebase Realtime Database
+    
     var creditCards: [CreditCard] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let nibName = UINib(nibName: "CardListCell", bundle: nil)
-        tableView.register(nibName, forCellReuseIdentifier: "CardListCell")
+        
+        // UI
+        let nib = UINib(nibName: "CardListCell", bundle: nil)   // .xib file name(not identifier)
+        tableView.register(nib, forCellReuseIdentifier: "CardListCell") // identifier of nib UI
+        
+        // Database
+        ref = Database.database().reference()
+        ref.observe(.value, with: { [unowned self] snapshot in
+            guard let value = snapshot.value as? NSDictionary else { return }
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: value)
+                let cardData = try JSONDecoder().decode([String: CreditCard].self, from: jsonData)
+                let cardList = Array(cardData.values)
+                self.creditCards = cardList.sorted { $0.rank < $1.rank }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } catch let error {
+                print("ERROR: JSON parsing error \(error.localizedDescription)")
+            }
+        })
+                
     }
-
+    
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         creditCards.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CardListCell", for: indexPath) as! CardListCell
-
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardListCell", for: indexPath) as? CardListCell else { return CardListCell() }
+                
         let card = creditCards[indexPath.row]
         cell.rankLabel.text = "\(card.rank)위"
         cell.promotionLabel.text = "\(card.promotionDetail.amount)만원 캐시백"
         cell.cardNameLabel.text = "\(card.name)"
-
+        
         let imageURL = URL(string: card.cardImageURL)
         cell.cardImageView.kf.setImage(with: imageURL)
-
+        
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cardDetailViewController = self.storyboard?.instantiateViewController(identifier: "DeatilViewController") as? CardDetailViewController else { return }
+        guard let cardDetailViewController = self.storyboard?.instantiateViewController(identifier: "CardDetailViewController") as? CardDetailViewController else { return }
         cardDetailViewController.promotionDetail = creditCards[indexPath.row].promotionDetail
-        self.navigationController?.pushViewController(cardDetailViewController, animated: true)
+//        self.navigationController?.pushViewController(cardDetailViewController, animated: true)
+        self.show(cardDetailViewController, sender: nil)
     }
-
+    
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -61,7 +79,7 @@ class CardListTableViewController: UITableViewController {
      return true
      }
      */
-
+    
     /*
      // Override to support editing the table view.
      override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -73,14 +91,14 @@ class CardListTableViewController: UITableViewController {
      }
      }
      */
-
+    
     /*
      // Override to support rearranging the table view.
      override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
      
      }
      */
-
+    
     /*
      // Override to support conditional rearranging of the table view.
      override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -88,7 +106,7 @@ class CardListTableViewController: UITableViewController {
      return true
      }
      */
-
+    
     /*
      // MARK: - Navigation
      
@@ -98,5 +116,5 @@ class CardListTableViewController: UITableViewController {
      // Pass the selected object to the new view controller.
      }
      */
-
+    
 }

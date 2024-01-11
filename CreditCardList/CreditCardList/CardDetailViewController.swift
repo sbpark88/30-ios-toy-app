@@ -37,13 +37,13 @@ class CardDetailViewController: UIViewController {
         
         guard let promotionDetail else { return }
         titleLabel.text = """
-            \(promotionDetail)카드 쓰면
-            \(promotionDetail)만원을 드려요
+            \(promotionDetail.companyName)카드 쓰면
+            \(promotionDetail.amount)만원을 드려요
             """
         periodLabel.text = promotionDetail.period
         conditionLabel.text = promotionDetail.condition
         benfitConditionLabel.text = promotionDetail.benefitCondition
-        benfitDetailLabel.text = promotionDetail.benefitDate
+        benfitDetailLabel.text = promotionDetail.benefitDetail
         benfitDateLabel.text = promotionDetail.benefitDate
     }
     
