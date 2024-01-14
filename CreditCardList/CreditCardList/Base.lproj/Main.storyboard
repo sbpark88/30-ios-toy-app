@@ -194,9 +194,6 @@
             <point key="canvasLocation" x="347" y="44"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="25X-Ff-6ei"/>
-    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
