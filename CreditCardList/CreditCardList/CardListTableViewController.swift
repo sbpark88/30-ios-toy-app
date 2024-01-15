@@ -8,10 +8,17 @@
 import UIKit
 import Kingfisher
 import FirebaseDatabase
+import FirebaseFirestore
 
 class CardListTableViewController: UITableViewController {
     
+    /* Realtime Database Code
     var ref: DatabaseReference! // Firebase Realtime Database
+     */
+    
+    /* Firestore Code */
+    let COLLECTION_NAME = "creditCardList"
+    var db: Firestore!
     
     var creditCards: [CreditCard] = []
     
@@ -22,6 +29,7 @@ class CardListTableViewController: UITableViewController {
         let nib = UINib(nibName: "CardListCell", bundle: nil) // .xib file name(not identifier)
         tableView.register(nib, forCellReuseIdentifier: "CardListCell") // identifier of nib UI
         
+        /* Realtime Database Code
         // Database
         ref = Database.database().reference()
         // MARK: Firebase Realtime Database GET
@@ -36,10 +44,35 @@ class CardListTableViewController: UITableViewController {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-            } catch let error {
+            } catch {
                 print("ERROR: JSON parsing error \(error.localizedDescription)")
             }
         })
+        */
+        
+        /* Firestore Code */
+        // Database
+        db = Firestore.firestore()
+        // MARK: Firebase Firestore GET
+        db.collection(COLLECTION_NAME).addSnapshotListener { querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                print("ERROR: Fetching documents \(error!.localizedDescription)")
+                return
+            }
+            self.creditCards = documents.compactMap {
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: $0.data())
+                    return try JSONDecoder().decode(CreditCard.self, from: jsonData)
+                } catch {
+                    print("ERROR: JSON parsing error \(error.localizedDescription)")
+                    return nil
+                }
+            }.sorted { $0.rank < $1.rank }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
         
     }
     
@@ -77,6 +110,7 @@ class CardListTableViewController: UITableViewController {
     private func updateSelected(id: Int?) {
         guard let id else { return }
         
+        /* Realtime Database Code
         // 대상의 경로를 확신할 수 있을 때
 //        ref.child("Item\(id)/isSelected").setValue(true)
         
@@ -107,6 +141,9 @@ class CardListTableViewController: UITableViewController {
                 // MARK: Firebase Realtime Database PATCH
                 strongSelf.ref.child("\(key)/isSelected").setValue(true)   // e.g. ref.child("Item2/isSelected").setValue(true)
             }
+         */
+        
+        /* Firestore Code */
     }
     
     
@@ -122,6 +159,7 @@ class CardListTableViewController: UITableViewController {
         if editingStyle == .delete {
             let id = creditCards[indexPath.row].id
             
+            /* Realtime Database Code
             // 대상의 경로를 확신할 수 있을 때
 //            ref.child("Item\(id)").removeValue()
             
@@ -135,33 +173,10 @@ class CardListTableViewController: UITableViewController {
                     
                     strongSelf.ref.child(key).removeValue()
                 }
+            */
+            
+            /* Firestore Code */
         }
     }
-     
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+
 }
