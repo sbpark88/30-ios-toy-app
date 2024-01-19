@@ -46,8 +46,7 @@ extension AppDelegate {
     // dummy 데이터로부터 초기 컬렉션 생성
     private func createFirestoreCollection(db: Firestore?) {
         let COLLECTION_NAME = "creditCardList"
-        
-        
+
         guard let db else { return }
         db.collection(COLLECTION_NAME).getDocuments(completion: { snapshot, error in
             guard snapshot?.isEmpty == true else { return }
@@ -64,8 +63,6 @@ extension AppDelegate {
             }
             
         })
-        
-        
     }
     
 }
