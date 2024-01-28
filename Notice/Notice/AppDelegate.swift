@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseCore
+import FirebaseInstallations
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        Installations.installations().authTokenForcingRefresh(true) { result, error in
+            if let error {
+                print("Error fetching token: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let result else { return }
+            print("Installation auth token: \(result.authToken)")
+            
+        }
         return true
     }
 
@@ -31,6 +42,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
 }
-

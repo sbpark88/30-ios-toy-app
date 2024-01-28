@@ -16,8 +16,8 @@
 		E939ABA92B65335F00276037 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E939ABA72B65335F00276037 /* LaunchScreen.storyboard */; };
 		E939ABB22B6533C700276037 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E939ABB02B6533C700276037 /* NoticeViewController.swift */; };
 		E939ABB32B6533C700276037 /* NoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E939ABB12B6533C700276037 /* NoticeViewController.xib */; };
-		E939ABB52B6552AB00276037 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E939ABB42B6552AB00276037 /* GoogleService-Info.plist */; };
 		E9A3F6572B65625900353FF3 /* RemoteConfigDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9A3F6562B65625900353FF3 /* RemoteConfigDefaults.plist */; };
+		E9A3F65B2B66D69400353FF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9A3F65A2B66D69400353FF3 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,8 +32,8 @@
 		E939ABAA2B65335F00276037 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E939ABB02B6533C700276037 /* NoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
 		E939ABB12B6533C700276037 /* NoticeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticeViewController.xib; sourceTree = "<group>"; };
-		E939ABB42B6552AB00276037 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E9A3F6562B65625900353FF3 /* RemoteConfigDefaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = RemoteConfigDefaults.plist; sourceTree = "<group>"; };
+		E9A3F65A2B66D69400353FF3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F5FB3204EA498B6FF80E7F3F /* Pods-Notice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notice.release.xcconfig"; path = "Target Support Files/Pods-Notice/Pods-Notice.release.xcconfig"; sourceTree = "<group>"; };
 		F96365C367A4815A8098640B /* Pods_Notice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -97,8 +97,8 @@
 				E939ABAA2B65335F00276037 /* Info.plist */,
 				E939ABB02B6533C700276037 /* NoticeViewController.swift */,
 				E939ABB12B6533C700276037 /* NoticeViewController.xib */,
-				E939ABB42B6552AB00276037 /* GoogleService-Info.plist */,
 				E9A3F6562B65625900353FF3 /* RemoteConfigDefaults.plist */,
+				E9A3F65A2B66D69400353FF3 /* GoogleService-Info.plist */,
 			);
 			path = Notice;
 			sourceTree = "<group>";
@@ -164,11 +164,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9A3F6572B65625900353FF3 /* RemoteConfigDefaults.plist in Resources */,
-				E939ABB52B6552AB00276037 /* GoogleService-Info.plist in Resources */,
 				E939ABA92B65335F00276037 /* LaunchScreen.storyboard in Resources */,
 				E939ABA62B65335F00276037 /* Assets.xcassets in Resources */,
 				E939ABB32B6533C700276037 /* NoticeViewController.xib in Resources */,
 				E939ABA42B65335D00276037 /* Main.storyboard in Resources */,
+				E9A3F65B2B66D69400353FF3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
