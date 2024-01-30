@@ -106,9 +106,6 @@ extension AlertListTableViewController: AlertManagerDelegate {
             // Something...
         }
     }
-//    func alertManager(_ manager: AlertManager, didUpdateAlert: [Alert]) {
-//        tableView.reloadData()
-//    }
     
     func alertManager(_ manager: AlertManager, didFaillWithError error: Error?) {
         print("Error: \(error?.localizedDescription ?? "Unknown")")
