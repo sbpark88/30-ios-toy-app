@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E99AF6062B689715002F8C1B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99AF6052B689715002F8C1B /* NotificationManager.swift */; };
 		E9A667E12B67E6DF00D6EF77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A667E02B67E6DF00D6EF77 /* AppDelegate.swift */; };
 		E9A667E32B67E6DF00D6EF77 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A667E22B67E6DF00D6EF77 /* SceneDelegate.swift */; };
 		E9A667E82B67E6DF00D6EF77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A667E62B67E6DF00D6EF77 /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E99AF6052B689715002F8C1B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		E9A667DD2B67E6DF00D6EF77 /* DrinkWater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrinkWater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A667E02B67E6DF00D6EF77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9A667E22B67E6DF00D6EF77 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				E9A668002B68040000D6EF77 /* DataUtil.swift */,
+				E99AF6052B689715002F8C1B /* NotificationManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				E9A667E12B67E6DF00D6EF77 /* AppDelegate.swift in Sources */,
 				E9A668012B68040000D6EF77 /* DataUtil.swift in Sources */,
 				E9A667F52B67E71100D6EF77 /* AlertListTableViewController.swift in Sources */,
+				E99AF6062B689715002F8C1B /* NotificationManager.swift in Sources */,
 				E9A667F82B67ED8000D6EF77 /* AlertListTableViewCell.swift in Sources */,
 				E9A667FB2B67F0F100D6EF77 /* Alert.swift in Sources */,
 				E9A667E32B67E6DF00D6EF77 /* SceneDelegate.swift in Sources */,

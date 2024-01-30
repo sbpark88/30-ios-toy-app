@@ -9,15 +9,7 @@ import UIKit
 
 class AlertListTableViewController: UITableViewController {
     
-//    var alerts: [Alert] = []
-    var alerts: [Alert] {
-        get {
-            alertManager.load()
-        }
-        set {
-            alertManager.save(alerts: newValue)
-        }
-    }
+    var alerts: [Alert] { alertManager.load() }
 
     var alertManager = AlertManager()
     
@@ -30,6 +22,10 @@ class AlertListTableViewController: UITableViewController {
         
         let nib = UINib(nibName: "AlertListTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "AlertListTableViewCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,17 +48,16 @@ class AlertListTableViewController: UITableViewController {
         cell.meridiemLabel.text = alert.meridiem
         cell.timeLabel.text = alert.time
         
-        cell.toggleSwitch = toggleSwitch(id: alert.id)
+        cell.toggleSwitch = toggleSwitch(of: alert)
 
         return cell
     }
     
-    func toggleSwitch(id: String) -> () -> Void {
+    func toggleSwitch(of alert: Alert) -> () -> Void {
         { [unowned self] in
-            alerts = alerts.map { $0.id == id
-                ? Alert(id: id, date: $0.date, isOn: !$0.isOn)
-                : $0 }
+            alertManager.update(alert: alert)
         }
+        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -76,7 +71,7 @@ class AlertListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            alertManager.delete(id: alerts[indexPath.row].id)
+            alertManager.delete(alert: alerts[indexPath.row])
         }
     }
     
@@ -85,7 +80,7 @@ class AlertListTableViewController: UITableViewController {
         
         addAlertVC.newAlert = { [unowned self] date in
             let newAlert = Alert(date: date, isOn: true)
-            alerts.append(newAlert)
+            alertManager.save(alert: newAlert)
         }
 //        func appendAlerts(date: Date) {
 //            let newAlert = Alert(date: date)
