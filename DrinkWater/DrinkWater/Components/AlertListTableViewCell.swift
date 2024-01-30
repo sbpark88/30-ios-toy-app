@@ -8,11 +8,15 @@
 import UIKit
 
 class AlertListTableViewCell: UITableViewCell {
+    
+    var toggleSwitch: (() -> Void)!
 
     @IBOutlet weak var meridiemLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var alertSwitch: UISwitch!
+    
+    var id: String!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,11 +25,10 @@ class AlertListTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     @IBAction func alertSwitchTapped(_ sender: UISwitch) {
+        toggleSwitch()
     }
     
 }

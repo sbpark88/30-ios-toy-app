@@ -16,6 +16,9 @@
 		E9A667F82B67ED8000D6EF77 /* AlertListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A667F62B67ED8000D6EF77 /* AlertListTableViewCell.swift */; };
 		E9A667F92B67ED8000D6EF77 /* AlertListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9A667F72B67ED8000D6EF77 /* AlertListTableViewCell.xib */; };
 		E9A667FB2B67F0F100D6EF77 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A667FA2B67F0F100D6EF77 /* Alert.swift */; };
+		E9A667FD2B67F6C000D6EF77 /* AddAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A667FC2B67F6C000D6EF77 /* AddAlertViewController.swift */; };
+		E9A667FF2B67FE4A00D6EF77 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A667FE2B67FE4A00D6EF77 /* AlertManager.swift */; };
+		E9A668012B68040000D6EF77 /* DataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A668002B68040000D6EF77 /* DataUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		E9A667F62B67ED8000D6EF77 /* AlertListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertListTableViewCell.swift; sourceTree = "<group>"; };
 		E9A667F72B67ED8000D6EF77 /* AlertListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertListTableViewCell.xib; sourceTree = "<group>"; };
 		E9A667FA2B67F0F100D6EF77 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		E9A667FC2B67F6C000D6EF77 /* AddAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlertViewController.swift; sourceTree = "<group>"; };
+		E9A667FE2B67FE4A00D6EF77 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		E9A668002B68040000D6EF77 /* DataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +49,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E99AF6012B687F2F002F8C1B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E9A667FA2B67F0F100D6EF77 /* Alert.swift */,
+				E9A667FE2B67FE4A00D6EF77 /* AlertManager.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E99AF6022B687F39002F8C1B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E9A667F42B67E71100D6EF77 /* AlertListTableViewController.swift */,
+				E9A667FC2B67F6C000D6EF77 /* AddAlertViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E99AF6032B687F42002F8C1B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E9A667F62B67ED8000D6EF77 /* AlertListTableViewCell.swift */,
+				E9A667F72B67ED8000D6EF77 /* AlertListTableViewCell.xib */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E99AF6042B687F4A002F8C1B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E9A668002B68040000D6EF77 /* DataUtil.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		E9A667D42B67E6DF00D6EF77 = {
 			isa = PBXGroup;
 			children = (
@@ -62,16 +103,16 @@
 		E9A667DF2B67E6DF00D6EF77 /* DrinkWater */ = {
 			isa = PBXGroup;
 			children = (
+				E99AF6042B687F4A002F8C1B /* Utils */,
+				E99AF6032B687F42002F8C1B /* Components */,
+				E99AF6022B687F39002F8C1B /* Controllers */,
+				E99AF6012B687F2F002F8C1B /* Models */,
 				E9A667E02B67E6DF00D6EF77 /* AppDelegate.swift */,
 				E9A667E22B67E6DF00D6EF77 /* SceneDelegate.swift */,
-				E9A667F42B67E71100D6EF77 /* AlertListTableViewController.swift */,
 				E9A667E62B67E6DF00D6EF77 /* Main.storyboard */,
 				E9A667E92B67E6E000D6EF77 /* Assets.xcassets */,
 				E9A667EB2B67E6E000D6EF77 /* LaunchScreen.storyboard */,
 				E9A667EE2B67E6E000D6EF77 /* Info.plist */,
-				E9A667F62B67ED8000D6EF77 /* AlertListTableViewCell.swift */,
-				E9A667F72B67ED8000D6EF77 /* AlertListTableViewCell.xib */,
-				E9A667FA2B67F0F100D6EF77 /* Alert.swift */,
 			);
 			path = DrinkWater;
 			sourceTree = "<group>";
@@ -149,10 +190,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9A667E12B67E6DF00D6EF77 /* AppDelegate.swift in Sources */,
+				E9A668012B68040000D6EF77 /* DataUtil.swift in Sources */,
 				E9A667F52B67E71100D6EF77 /* AlertListTableViewController.swift in Sources */,
 				E9A667F82B67ED8000D6EF77 /* AlertListTableViewCell.swift in Sources */,
 				E9A667FB2B67F0F100D6EF77 /* Alert.swift in Sources */,
 				E9A667E32B67E6DF00D6EF77 /* SceneDelegate.swift in Sources */,
+				E9A667FF2B67FE4A00D6EF77 /* AlertManager.swift in Sources */,
+				E9A667FD2B67F6C000D6EF77 /* AddAlertViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,9 +8,9 @@
 import Foundation
 
 struct Alert: Codable, Identifiable {
-    var id: String = UUID().uuidString
+    private(set) var id: String = UUID().uuidString
     let date: Date
-    let isOn: Bool
+    var isOn: Bool = true
     
     var time: String {
         let dateFormatter = DateFormatter()

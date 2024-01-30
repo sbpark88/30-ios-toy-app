@@ -9,10 +9,21 @@ import UIKit
 
 class AlertListTableViewController: UITableViewController {
     
-    var alerts: [Alert] = []
+//    var alerts: [Alert] = []
+    var alerts: [Alert] {
+        get {
+            alertManager.load()
+        }
+        set {
+            alertManager.save(alerts: newValue)
+        }
+    }
 
+    var alertManager = AlertManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertManager.delegate = self
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDrinkWater))
         navigationItem.rightBarButtonItem = addButton
@@ -40,8 +51,18 @@ class AlertListTableViewController: UITableViewController {
         cell.alertSwitch.isOn = alert.isOn
         cell.meridiemLabel.text = alert.meridiem
         cell.timeLabel.text = alert.time
+        
+        cell.toggleSwitch = toggleSwitch(id: alert.id)
 
         return cell
+    }
+    
+    func toggleSwitch(id: String) -> () -> Void {
+        { [unowned self] in
+            alerts = alerts.map { $0.id == id
+                ? Alert(id: id, date: $0.date, isOn: !$0.isOn)
+                : $0 }
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -55,13 +76,41 @@ class AlertListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Notification 삭제 구현
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            alertManager.delete(id: alerts[indexPath.row].id)
         }
     }
     
     @objc func addDrinkWater() {
-        print("Add!!")
+        guard let addAlertVC = storyboard?.instantiateViewController(withIdentifier: "AddAlertViewController") as? AddAlertViewController else { return }
+        
+        addAlertVC.newAlert = { [unowned self] date in
+            let newAlert = Alert(date: date, isOn: true)
+            alerts.append(newAlert)
+        }
+//        func appendAlerts(date: Date) {
+//            let newAlert = Alert(date: date)
+//            alerts.append(newAlert)
+//        }
+//        addAlertVC.newAlert = appendAlerts(date:)
+        
+        present(addAlertVC, animated: true)
     }
 
+}
+
+extension AlertListTableViewController: AlertManagerDelegate {
+    func alertManager(_ manager: AlertManager, didUpdateAlert: Bool) {
+        if didUpdateAlert {
+            tableView.reloadData()
+        } else {
+            // Something...
+        }
+    }
+//    func alertManager(_ manager: AlertManager, didUpdateAlert: [Alert]) {
+//        tableView.reloadData()
+//    }
+    
+    func alertManager(_ manager: AlertManager, didFaillWithError error: Error?) {
+        print("Error: \(error?.localizedDescription ?? "Unknown")")
+    }
 }
